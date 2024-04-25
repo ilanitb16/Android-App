@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context=".Login_Page">
+
+    <LinearLayout
+        android:id="@+id/linearLayout4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout3">
+
+        <EditText
+            android:id="@+id/firstName"
+            android:layout_width="150dp"
+            android:layout_height="60dp"
+            android:background="@drawable/text_input"
+            android:ems="10"
+            android:hint="@string/first_name"
+            android:inputType="text"
+            android:paddingLeft="10dp"
+            app:backgroundTint="@null" />
+
+        <EditText
+            android:id="@+id/lastName"
+            android:layout_width="150dp"
+            android:layout_height="60dp"
+            android:layout_marginLeft="20dp"
+            app:backgroundTint="@null"
+            android:background="@drawable/text_input"
+            android:ems="10"
+            android:hint="@string/last_name"
+            android:inputType="text"
+            android:paddingLeft="10dp" />
+    </LinearLayout>
+
+    <TextView
+        android:layout_marginBottom="15dp"
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:text="It's quick and easy"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout4"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout3" />
+
+    <!--this is the username and password part-->
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <EditText
+            android:id="@+id/username"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:drawableLeft="@drawable/baseline_account_box_24"
+            android:drawablePadding="10dp"
+            android:ems="10"
+            android:hint="@string/user_name"
+            app:backgroundTint="@null"
+            android:background="@drawable/text_input"
+            android:inputType="text" />
+
+        <EditText
+            android:id="@+id/password"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginTop="25dp"
+            android:drawableLeft="@drawable/baseline_admin_panel_settings_24"
+            android:drawablePadding="10dp"
+            android:ems="10"
+            android:hint="@string/password"
+            app:backgroundTint="@null"
+            android:background="@drawable/text_input"
+            android:inputType="textPassword" />
+
+        <EditText
+            android:id="@+id/passwordConfirm"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginTop="25dp"
+            android:drawableLeft="@drawable/baseline_admin_panel_settings_24"
+            android:drawablePadding="10dp"
+            android:ems="10"
+            android:hint="@string/confirm_password"
+            app:backgroundTint="@null"
+            android:background="@drawable/text_input"
+            android:inputType="textPassword" />
+
+        <Button
+            android:id="@+id/btnlogin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="50dp"
+            android:backgroundTint="@color/blue"
+            android:text="@string/sign_up_btn" />
+    </LinearLayout>
+
+
+<!--this is the head of the page-->
+    <LinearLayout
+        android:id="@+id/linearLayout3"
+        android:layout_width="match_parent"
+        android:layout_height="67dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="79dp"
+            android:layout_height="52dp"
+            app:srcCompat="@drawable/facebook_photo" />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="13dp"
+            android:layout_weight="1"
+            android:text="@string/create_new_account"
+            android:textSize="26sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="75dp"
+        android:layout_marginBottom="50dp"
+        android:orientation="vertical"
+        android:padding="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout">
+
+        <Button
+            android:id="@+id/alreadyHave"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="@drawable/border_signup"
+            android:text="@string/already_have_an_account"
+            android:textColor="@color/blue"
+            app:backgroundTint="@null" />
+    </LinearLayout>
+
+
+<!--this is the bottom logo-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout2">
+
+        <ImageView
+            android:id="@+id/imageView3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/not_meta" />
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
