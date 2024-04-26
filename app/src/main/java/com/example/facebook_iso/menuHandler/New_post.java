@@ -1,27 +1,27 @@
 package com.example.facebook_iso.menuHandler;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 
-import com.example.facebook_iso.Converters;
 import com.example.facebook_iso.FeedPage;
 import com.example.facebook_iso.R;
 import com.example.facebook_iso.editHandler.DataSaver;
 import com.example.facebook_iso.entities.Post;
 import com.example.facebook_iso.picture.picture;
 
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 
 public class New_post extends AppCompatActivity {
-    private Uri finalImage;
+    private String finalImage;
     private DataSaver helper;
 
     @Override
@@ -46,7 +46,7 @@ public class New_post extends AppCompatActivity {
             String setDescription = etDescription.getText().toString();
             etTitle.setText("");
             etDescription.setText("");
-            finalImage = helper.getImagePost();
+            finalImage = helper.getImageString();
             createPost(setTitle, setDescription);
             finish();
         });
@@ -56,12 +56,13 @@ public class New_post extends AppCompatActivity {
 
     private void createPost(String setTitle, String setDescription) {
         String date = getDate();
-        Post newPost = new Post(setTitle, setDescription, date, Converters.uriToString(finalImage), FeedPage.owner);
+        Log.d("New Post", FeedPage.owner.getToken());
+        Post newPost = new Post("", setTitle, setDescription, date, finalImage, FeedPage.owner);
         FeedPage.postsViewModel.add(newPost);
-        FeedPage.adapter.addPost(newPost);
     }
 
     private String getDate() {
+        @SuppressLint("SimpleDateFormat")
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         Date currentDate = new Date();
         return sdf.format(currentDate);

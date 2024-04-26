@@ -12,9 +12,9 @@ import android.widget.TextView;
 
 import com.example.facebook_iso.FeedPage;
 import com.example.facebook_iso.Requests;
-import com.example.facebook_iso.adapters.FriendsAdapter;
-import com.example.facebook_iso.adapters.UsersAdapter;
+import com.example.facebook_iso.common.UIToast;
 import com.example.facebook_iso.login.Login_Page;
+import com.example.facebook_iso.login.current_user;
 
 public class MenuFeed {
     private final FeedPage feedPage;
@@ -68,7 +68,7 @@ public class MenuFeed {
 
     private void homeOperation() {
         feedPage.changeOpenMenu();
-        FeedPage.lstPosts.smoothScrollToPosition(0);
+        FeedPage.feedRecyclerView.smoothScrollToPosition(0);
     }
     private void deleteOperation(View v){
         AlertDialog.Builder builder = new AlertDialog.Builder(feedPage);
@@ -79,16 +79,19 @@ public class MenuFeed {
                 .setNegativeButton("No", (dialog, which) -> dialog.dismiss())
                 .show();
     }
+    private final Object lock = new Object();
+
     private void deleteAccount(View v){
-        notifyAll();
-        Intent intent = new Intent(v.getContext(), Login_Page.class);
-        v.getContext().startActivity(intent);
+        synchronized (lock) {
+            lock.notifyAll();
+        }
+        FeedPage.userViewModel.deleteUser(current_user.getInstance().getCurrentUser());
     }
 
     private void newPostOperation() {
         Intent intent = new Intent(MenuFeed.activity, New_post.class);
         MenuFeed.activity.startActivity(intent);
-        FeedPage.lstPosts.smoothScrollToPosition(0);
+        FeedPage.feedRecyclerView.smoothScrollToPosition(0);
         feedPage.changeOpenMenu();
     }
 

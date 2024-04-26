@@ -1,6 +1,7 @@
 package com.example.facebook_iso.editHandler;
 
 import android.content.Intent;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.PopupWindow;
@@ -8,8 +9,8 @@ import android.widget.TextView;
 
 import com.example.facebook_iso.FeedPage;
 import com.example.facebook_iso.R;
+import com.example.facebook_iso.UserInfoActivity;
 import com.example.facebook_iso.entities.Post;
-import com.example.facebook_iso.login.Login_Page;
 
 import java.util.List;
 
@@ -30,9 +31,9 @@ public class ThreeDots {
     }
 
     private void setupMenu() {
-        int indexOfPost = FeedPage.adapter.getPosts().indexOf(post);
+        int indexOfPost = FeedPage.feedAdapter.getPosts().indexOf(post);
         if (indexOfPost != -1) {
-            FeedPage.lstPosts.scrollToPosition(indexOfPost);
+            FeedPage.feedRecyclerView.scrollToPosition(indexOfPost);
         }
         ImageButton editButton = menuView.findViewById(R.id.EditButton);
         TextView editText = menuView.findViewById(R.id.EditText);
@@ -56,11 +57,13 @@ public class ThreeDots {
 
     private void deleteOperation() {
         popupWindow.dismiss();
-        List<Post> posts = FeedPage.adapter.getPosts();
+        List<Post> posts = UserInfoActivity.adapter.getPosts();
+        Log.d("API call", String.valueOf(posts.size()));
         int indexOfPost = posts.indexOf(post);
         Post post = posts.get(indexOfPost);
         posts.remove(indexOfPost);
         FeedPage.postsViewModel.delete(post);
-        FeedPage.adapter.setPosts(posts);
+        UserInfoActivity.adapter.setPosts(posts);
+        UserInfoActivity.adapter.notifyItemRemoved(indexOfPost);
     }
 }

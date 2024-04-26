@@ -10,6 +10,7 @@ import android.widget.EditText;
 import com.example.facebook_iso.Converters;
 import com.example.facebook_iso.FeedPage;
 import com.example.facebook_iso.R;
+import com.example.facebook_iso.UserInfoActivity;
 import com.example.facebook_iso.entities.Post;
 import com.example.facebook_iso.login.Login_Page;
 import com.example.facebook_iso.picture.picture;
@@ -67,7 +68,7 @@ public class EditPost extends Activity {
     }
 
     private void updatePost(String newTitle, String newDescription) {
-        List<Post> posts = FeedPage.adapter.getPosts();
+        List<Post> posts = UserInfoActivity.adapter.getPosts();
         int indexOfPost = posts.indexOf(post);
         Post current = posts.get(indexOfPost);
         if (!newTitle.isEmpty()){
@@ -77,9 +78,10 @@ public class EditPost extends Activity {
             current.setDescription(newDescription);
         }
         if (imagePost != null){
-            current.setImg(Converters.uriToString(imagePost));
+            current.setImg(helper.getImageString());
         }
         FeedPage.postsViewModel.edit(current);
-        FeedPage.adapter.setPosts(posts);
+        UserInfoActivity.adapter.setPosts(posts);
+        UserInfoActivity.adapter.notifyItemRemoved(indexOfPost);
     }
 }

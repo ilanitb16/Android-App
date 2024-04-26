@@ -24,4 +24,12 @@ public class current_user {
     public void set_CurrentUser(User currentUser) {
         this.currentUser = currentUser;
     }
+
+    public loginInfo getCurrent() {
+        return current;
+    }
+
+    public User getCurrentUser() {
+        return currentUser;
+    }
 }

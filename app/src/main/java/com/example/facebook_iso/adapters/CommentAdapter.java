@@ -109,11 +109,11 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.CommentV
     public void toggleTheme() {
         Boolean isDarkMode = FeedPage.isDarkMode;
         backgroundColor = isDarkMode ?
-                ContextCompat.getColor(FeedPage.adapter.getContext(), R.color.BACKGROUND_POST_DARK) :
-                ContextCompat.getColor(FeedPage.adapter.getContext(), R.color.BACKGROUND_POST_LIGHT);
+                ContextCompat.getColor(FeedPage.feedAdapter.getContext(), R.color.BACKGROUND_POST_DARK) :
+                ContextCompat.getColor(FeedPage.feedAdapter.getContext(), R.color.BACKGROUND_POST_LIGHT);
         TextColor = isDarkMode ?
-                ContextCompat.getColor(FeedPage.adapter.getContext(), R.color.white) :
-                ContextCompat.getColor(FeedPage.adapter.getContext(), R.color.black);
+                ContextCompat.getColor(FeedPage.feedAdapter.getContext(), R.color.white) :
+                ContextCompat.getColor(FeedPage.feedAdapter.getContext(), R.color.black);
     }
 
 

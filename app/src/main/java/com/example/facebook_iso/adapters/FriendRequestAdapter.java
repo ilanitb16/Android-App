@@ -1,5 +1,6 @@
 package com.example.facebook_iso.adapters;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -61,12 +62,12 @@ public class FriendRequestAdapter extends RecyclerView.Adapter<FriendRequestAdap
 
         holder.acceptButton.setOnClickListener(v -> {
             FeedPage.owner.addFriend(current);
-            Login_Page.userViewModel.approveFriendsRequest(current);
+            FeedPage.userViewModel.approveFriendsRequest(current);
             removeRequest(current);
         });
 
         holder.declineButton.setOnClickListener(v -> {
-            Login_Page.userViewModel.deleteFriendsRequest(current);
+            FeedPage.userViewModel.deleteFriendsRequest(current);
             removeRequest(current);
         });
     }
@@ -81,6 +82,7 @@ public class FriendRequestAdapter extends RecyclerView.Adapter<FriendRequestAdap
         return friendRequests.size();
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     public void setFriendRequests(List<User> friendRequests) {
         this.friendRequests = friendRequests;
         notifyDataSetChanged();

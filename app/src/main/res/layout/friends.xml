@@ -14,7 +14,7 @@
             android:id="@+id/friendsList"
             android:gravity="center_horizontal"
             android:layout_width="match_parent"
+            style="@style/BACKGROUND_FEED"
             android:layout_height="match_parent" />
-
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

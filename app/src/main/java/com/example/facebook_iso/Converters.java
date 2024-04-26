@@ -32,7 +32,7 @@ public class Converters {
             return null;
         }
 
-        String fileName = "image_" + System.currentTimeMillis() + ".jpg"; // Unique filename
+        String fileName = "image_" + System.currentTimeMillis() + ".jpg";
         String imagePath = saveBitmapToInternalStorage(context, imgBitmap, fileName);
         if (imagePath == null) {
             return null;

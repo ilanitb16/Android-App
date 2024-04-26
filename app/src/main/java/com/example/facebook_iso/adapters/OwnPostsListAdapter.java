@@ -97,7 +97,7 @@ public class OwnPostsListAdapter extends RecyclerView.Adapter<OwnPostsListAdapte
         holder.ivImg.setImageURI(Converters.fromString(current.getImg()));
         holder.ivAuthorPhoto.setImageURI(Converters.fromString(current.getUser().getProfilePic()));
         toggleTheme();
-        commentAdapter = new CommentAdapter(current, FeedPage.adapter);
+        commentAdapter = new CommentAdapter(current, FeedPage.feedAdapter);
         holder.tvAuthor.setTextColor(TextColor);
         holder.tvDate.setTextColor(TextColor);
         holder.tvTitle.setTextColor(TextColor);
@@ -179,10 +179,10 @@ public class OwnPostsListAdapter extends RecyclerView.Adapter<OwnPostsListAdapte
         } else {
             current.setLikes(current.getLikes() - 1);
         }
-        if (FeedPage.adapter != null) {
-            int position = FeedPage.adapter.getPosts().indexOf(current);
+        if (FeedPage.feedAdapter != null) {
+            int position = FeedPage.feedAdapter.getPosts().indexOf(current);
             if (position != RecyclerView.NO_POSITION) {
-                FeedPage.adapter.notifyItemChanged(position);
+                FeedPage.feedAdapter.notifyItemChanged(position);
             }
         }
     }
@@ -203,5 +203,13 @@ public class OwnPostsListAdapter extends RecyclerView.Adapter<OwnPostsListAdapte
         PopupWindow popupWindow = new PopupWindow(menuView, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT, true);
         popupWindow.showAsDropDown(view);
         current.setThreeDots(new ThreeDots(menuView, current, popupWindow));
+    }
+
+    public List<Post> getPosts() {
+        return ownPosts;
+    }
+
+    public void setPosts(List<Post> allPosts) {
+        this.ownPosts = allPosts;
     }
 }

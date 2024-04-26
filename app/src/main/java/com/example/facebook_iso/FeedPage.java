@@ -21,6 +21,7 @@ import com.example.facebook_iso.adapters.FriendRequestAdapter;
 import com.example.facebook_iso.adapters.FriendsAdapter;
 import com.example.facebook_iso.adapters.UsersAdapter;
 import com.example.facebook_iso.adapters.PostsListAdapter;
+import com.example.facebook_iso.common.UIToast;
 import com.example.facebook_iso.editHandler.DataSaver;
 import com.example.facebook_iso.entities.User;
 import com.example.facebook_iso.entities.Post;
@@ -28,15 +29,20 @@ import com.example.facebook_iso.entities.Post;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.example.facebook_iso.login.Login_Page;
+import com.example.facebook_iso.login.current_user;
 import com.example.facebook_iso.menuHandler.MenuFeed;
 import com.example.facebook_iso.viewmodels.PostsViewModel;
+import com.example.facebook_iso.viewmodels.UserViewModel;
 
-public class FeedPage extends AppCompatActivity {
+public class FeedPage extends AppCompatActivity{
     public static User owner;
+    public static UserViewModel userViewModel;
+
     public static Boolean picbtn;
     public static Boolean request;
-    public static RecyclerView lstPosts;
-    public static PostsListAdapter adapter;
+    public static RecyclerView feedRecyclerView;
+    public static PostsListAdapter feedAdapter;
     public static Context context;
     private MenuFeed menuFeed;
     private List<Post> posts;
@@ -62,66 +68,69 @@ public class FeedPage extends AppCompatActivity {
     private TextView friendText;
     public static UsersAdapter usersAdapter;
     public static FriendRequestAdapter friendRequestAdapter;
+    public static FriendsAdapter friendsAdapter;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_feed_page);
+        context = this;
+        //Feed
+        feedRecyclerView = findViewById(R.id.lstPosts);
+        feedAdapter = new PostsListAdapter(context, this);
+        feedRecyclerView.setAdapter(feedAdapter);
+        feedRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        feedRecyclerView.setAdapter(feedAdapter);
+
         DataSaver.getInstance().setFeedPage(this);
 
+        userViewModel = new ViewModelProvider(this).get(UserViewModel.class);
+        postsViewModel = new ViewModelProvider(this).get(PostsViewModel.class);
+
         setMenu();
+        postsViewModel.reload();
 
         setFirstPosts();
-
         refreshFeed();
         SwipeRefreshLayout refreshLayout = findViewById(R.id.refreshLayout);
         refreshLayout.setOnRefreshListener(() -> {
             postsViewModel.reload();
             refreshLayout.setRefreshing(false);
-
         });
 
-        postsViewModel.get().observe(this, posts0 -> {
-            adapter.setPosts(posts0);
-            refreshFeed();
-        });
+//        postsViewModel.get().observe(this, posts0 -> {
+//            feedAdapter.setPosts(posts0);
+//            refreshFeed();
+//        });
     }
 
-    private void setFirstPosts() {
+
+    public void setFirstPosts() {
         if (isDarkMode == null) {
             isDarkMode = true;
             toggleTheme();
         }
+        context = this;
+
+        //Feed
         request = false;
-        usersAdapter = new UsersAdapter(this, this);
+        posts = new ArrayList<>();
+
+
+        //Friends
+        friendsAdapter = new FriendsAdapter(this);
+
+        //Friend Requests
         friendRequestAdapter = new FriendRequestAdapter(this);
 
-        context = this;
-        lstPosts = findViewById(R.id.lstPosts);
-
-        adapter = new PostsListAdapter(context, this);
-
-        lstPosts.setAdapter(adapter);
-        lstPosts.setLayoutManager(new LinearLayoutManager(this));
-        postsViewModel = new ViewModelProvider(this).get(PostsViewModel.class);
-
-        posts = new ArrayList<>();
+        //Users
         users = new ArrayList<>();
-
-
-        usersAdapter.setUsers(users);
-        adapter.setPosts(posts);
-
-        postsViewModel.getUserPosts(owner);
+        usersAdapter = new UsersAdapter(this, this);
     }
 
 
     public void refreshFeed() {
-        lstPosts = findViewById(R.id.lstPosts);
-        lstPosts.setAdapter(adapter);
-        lstPosts.setLayoutManager(new LinearLayoutManager(this));
-
-
         ImageButton menuButton = findViewById(R.id.menuButton);
         menuButton.setOnClickListener(v -> openMenu());
 
@@ -166,6 +175,8 @@ public class FeedPage extends AppCompatActivity {
         deleteUser = findViewById(R.id.btnDeleteUser);
         DeleteText = findViewById(R.id.DeleteText);
         FriendReqText = findViewById(R.id.FriendReqText);
+
+
         openMenu = false;
     }
 
@@ -177,6 +188,11 @@ public class FeedPage extends AppCompatActivity {
         int textColor = isDarkMode ? ContextCompat.getColor(this, R.color.white) : ContextCompat.getColor(this, R.color.black);
         int backgroundColor = isDarkMode ? ContextCompat.getColor(this, R.color.BACKGROUND_FEED_DARK) : ContextCompat.getColor(this, R.color.BACKGROUND_FEED_LIGHT);
         int backgroundTopColor = isDarkMode ? ContextCompat.getColor(this, R.color.BACKGROUND_POST_DARK) : ContextCompat.getColor(this, R.color.BACKGROUND_POST_LIGHT);
+
+        //Feed
+
+        //Friends
+        //Requests
         homeText.setTextColor(textColor);
         newPostText.setTextColor(textColor);
         myAccountText.setTextColor(textColor);

@@ -1,10 +1,13 @@
 package com.example.facebook_iso.adapters;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.core.content.ContextCompat;
@@ -20,14 +23,14 @@ import java.util.List;
 
 public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.FriendViewHolder> {
     private final Context context;
-    private int textColor;
+    private int textColor, itemColor;
     private final LayoutInflater mInflater;
     private List<User> friends;
 
     public FriendsAdapter(Context context) {
         this.mInflater = LayoutInflater.from(context);
         this.context = context;
-        Login_Page.userViewModel.getUserFriends(FeedPage.owner);
+        FeedPage.userViewModel.getUserFriends(FeedPage.owner);
         this.friends = FeedPage.owner.getFriends();
 
     }
@@ -37,11 +40,14 @@ public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.FriendVi
         private final TextView displayNameTextView;
         private final ImageView profilePicImageView;
 
+        private final LinearLayout linearLayout;
+
         private FriendViewHolder(View itemView) {
             super(itemView);
-            usernameTextView = itemView.findViewById(R.id.usernameTextView);
-            displayNameTextView = itemView.findViewById(R.id.displayNameTextView);
-            profilePicImageView = itemView.findViewById(R.id.profilePicImageView);
+            usernameTextView = itemView.findViewById(R.id.text_view_username);
+            displayNameTextView = itemView.findViewById(R.id.text_view_name);
+            profilePicImageView = itemView.findViewById(R.id.profile_image);
+            linearLayout = itemView.findViewById(R.id.itemBackground);
         }
     }
 
@@ -59,8 +65,10 @@ public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.FriendVi
         holder.displayNameTextView.setText(current.getDisplayName());
         holder.profilePicImageView.setImageURI(Converters.fromString(current.getProfilePic()));
 
+        holder.linearLayout.setBackgroundColor(itemColor);
         holder.usernameTextView.setTextColor(textColor);
         holder.displayNameTextView.setTextColor(textColor);
+
     }
 
     private void toggleTheme() {
@@ -68,6 +76,10 @@ public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.FriendVi
         textColor = isDarkMode ?
                 ContextCompat.getColor(context, R.color.white) :
                 ContextCompat.getColor(context, R.color.black);
+;
+        itemColor = !isDarkMode ?
+                ContextCompat.getColor(context, R.color.BACKGROUND_POST_LIGHT) :
+                ContextCompat.getColor(context, R.color.BACKGROUND_POST_DARK);
     }
 
     @Override
@@ -79,8 +91,12 @@ public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.FriendVi
         return friends;
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     public void setFriends(List<User> friends) {
-        this.friends = friends;
-        notifyDataSetChanged();
+        if(friends != null)
+        {
+            this.friends = friends;
+            notifyDataSetChanged();
+        }
     }
 }

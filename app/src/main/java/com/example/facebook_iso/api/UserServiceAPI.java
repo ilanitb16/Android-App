@@ -2,10 +2,6 @@ package com.example.facebook_iso.api;
 
 import com.google.gson.JsonObject;
 
-import org.json.JSONObject;
-import org.json.JSONStringer;
-
-import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;
@@ -32,11 +28,6 @@ public interface UserServiceAPI {
     Call<JsonObject> deleteFriendsRequest(@Path("id") String userId, @Path("fid") String friendId, @Header("authorization") String token);
     @PATCH("api/users/{id}/friends/{fid}")
     Call<JsonObject> approveFriendsRequest(@Path("id") String userId, @Path("fid") String friendId, @Header("authorization") String token);
-
-
-
-
     @DELETE("api/users/{id}")
     Call<JsonObject> deleteUser(@Path("id") String username, @Header("authorization") String token);
    }
-

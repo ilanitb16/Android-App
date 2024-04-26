@@ -4,6 +4,7 @@ import static com.example.facebook_iso.login.Login_Page.userViewModel;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -13,6 +14,7 @@ import android.widget.Toast;
 
 import com.example.facebook_iso.Converters;
 import com.example.facebook_iso.FeedPage;
+import com.example.facebook_iso.MyApplication;
 import com.example.facebook_iso.R;
 import com.example.facebook_iso.editHandler.DataSaver;
 import com.example.facebook_iso.entities.User;
@@ -20,12 +22,12 @@ import com.example.facebook_iso.picture.picture;
 
 public class SignupPage extends AppCompatActivity {
 
-
+    public static Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        this.context = MyApplication.context;
         if (FeedPage.isDarkMode != null && FeedPage.isDarkMode) {
             setContentView(R.layout.signup_page_dark);
         } else {
@@ -45,7 +47,7 @@ public class SignupPage extends AppCompatActivity {
         });
 
 
-        Button btnlogin = findViewById(R.id.btnlogin);
+        Button btnlogin = findViewById(R.id.btnsignUp);
         btnlogin.setOnClickListener(v -> {
 
             String first= firstName.getText().toString();
@@ -53,7 +55,7 @@ public class SignupPage extends AppCompatActivity {
             String user= username_text.getText().toString();
             String pass= password_text.getText().toString();
             String confirm = passwordConfirm.getText().toString();
-            String img = Converters.uriToString(DataSaver.getInstance().getImagePost());
+            String img = DataSaver.getInstance().getImageString();
 
 
 
@@ -132,11 +134,11 @@ public class SignupPage extends AppCompatActivity {
                 
                 FeedPage.owner = current;
 
-                userViewModel.signUp(current);
-                if (FeedPage.owner != null){
-                    Intent feedPageActivity = new Intent(Login_Page.context, FeedPage.class);
-                    Login_Page.context.startActivity(feedPageActivity);
-                }
+                userViewModel.signUp(current, SignupPage.this);
+//                if (FeedPage.owner != null){
+//                    Intent feedPageActivity = new Intent(Login_Page.context, FeedPage.class);
+//                    Login_Page.context.startActivity(feedPageActivity);
+//                }
 
 
             } else {

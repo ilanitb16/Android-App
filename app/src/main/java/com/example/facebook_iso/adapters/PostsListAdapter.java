@@ -1,7 +1,9 @@
 package com.example.facebook_iso.adapters;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.Gravity;
 
 import android.view.LayoutInflater;
@@ -15,6 +17,7 @@ import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -28,10 +31,11 @@ import com.example.facebook_iso.editHandler.ThreeDots;
 import com.example.facebook_iso.entities.Comment;
 import com.example.facebook_iso.entities.Post;
 import com.example.facebook_iso.entities.User;
-import com.example.facebook_iso.login.Login_Page;
 import com.example.facebook_iso.menuHandler.MenuFeed;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public class PostsListAdapter extends RecyclerView.Adapter<PostsListAdapter.PostViewHolder> {
     private CommentAdapter commentAdapter;
@@ -98,16 +102,16 @@ public class PostsListAdapter extends RecyclerView.Adapter<PostsListAdapter.Post
     }
 
 
-    @Override
-    public PostViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public PostsListAdapter.PostViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = mInflater.inflate(R.layout.post_layout, parent, false);
-        return new PostViewHolder(itemView);
+        return new PostsListAdapter.PostViewHolder(itemView);
     }
 
     @Override
     public void onBindViewHolder(PostViewHolder holder, int position) {
         if (posts != null) {
             final Post current = posts.get(position);
+
             if (current.getUser() != null) {
                 holder.tvAuthor.setText(current.getUser().getUsername());
                 holder.tvDate.setText(current.getCreateDate());
@@ -160,7 +164,7 @@ public class PostsListAdapter extends RecyclerView.Adapter<PostsListAdapter.Post
                     holder.threeDots.setVisibility(View.GONE);
                 }
 
-                Login_Page.userViewModel.getUserFriends(FeedPage.owner);
+                FeedPage.userViewModel.getUserFriends(FeedPage.owner);
                 boolean isFriend = current.getUser().equals(FeedPage.owner);
                 for (User friend : FeedPage.owner.getFriends()) {
                     if (friend.getUsername().equals(current.getUser().getUsername())) {
@@ -193,6 +197,9 @@ public class PostsListAdapter extends RecyclerView.Adapter<PostsListAdapter.Post
                             notifyDataSetChanged();
                         }
                     }
+                    else {
+                        Toast.makeText(context, "User not found", Toast.LENGTH_SHORT).show();
+                    }
                 });
             }
         }
@@ -209,14 +216,19 @@ public class PostsListAdapter extends RecyclerView.Adapter<PostsListAdapter.Post
     }
 
 
+    @SuppressLint("NotifyDataSetChanged")
     public void setPosts(List<Post> allPosts) {
-        this.posts = allPosts;
+        posts = allPosts;
+        notifyDataSetChanged();
     }
 
+
     public void addPost(Post post) {
+        if (this.posts == null) {
+            this.posts = new ArrayList<>();
+        }
         this.posts.add(0, post);
-        feedPage.refreshFeed();
-        //notifyItemInserted(0);
+        notifyItemInserted(0);
     }
 
     @Override
@@ -256,10 +268,10 @@ public class PostsListAdapter extends RecyclerView.Adapter<PostsListAdapter.Post
         } else {
             current.setLikes(current.getLikes() - 1);
         }
-        if (FeedPage.adapter != null) {
-            int position = FeedPage.adapter.getPosts().indexOf(current);
+        if (FeedPage.feedAdapter != null) {
+            int position = FeedPage.feedAdapter.getPosts().indexOf(current);
             if (position != RecyclerView.NO_POSITION) {
-                FeedPage.adapter.notifyItemChanged(position);
+                FeedPage.feedAdapter.notifyItemChanged(position);
             }
         }
     }

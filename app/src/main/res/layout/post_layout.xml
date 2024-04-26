@@ -33,9 +33,6 @@
                 android:focusable="true"
                 android:onClick="openUserActivity" />
 
-
-
-
             <TextView
                 android:id="@+id/tvAuthor"
                 android:layout_width="0dp"

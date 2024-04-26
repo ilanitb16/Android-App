@@ -102,7 +102,7 @@ public class update_user_activity extends AppCompatActivity {
 
 
             if (!err) {
-                Login_Page.userViewModel.updateUser(current);
+                FeedPage.userViewModel.updateUser(current);
                 finish();
             } else {
                 Toast.makeText(this, "Invalid Form", Toast.LENGTH_SHORT).show();

@@ -18,6 +18,10 @@ import com.example.facebook_iso.Converters;
 import com.example.facebook_iso.FeedPage;
 import com.example.facebook_iso.MyApplication;
 import com.example.facebook_iso.R;
+import com.example.facebook_iso.common.ProgressDialogManager;
+import com.example.facebook_iso.common.SharedPreferencesManager;
+import com.example.facebook_iso.common.UIToast;
+import com.example.facebook_iso.common.keys;
 import com.example.facebook_iso.viewmodels.UserViewModel;
 
 import java.lang.reflect.Field;
@@ -61,11 +65,13 @@ public class Login_Page extends AppCompatActivity {
 
         Button btnlogin = findViewById(R.id.btnlogin);
         btnlogin.setOnClickListener(v -> {
+            ProgressDialogManager.showProgressDialog(Login_Page.this, "Logging In", "Please wait...");
             TextView username_text = findViewById(R.id.username);
             TextView password_text = findViewById(R.id.password);
             String username = username_text.getText().toString();
             String pass = password_text.getText().toString();
             userViewModel.signIn(username, pass);
+
        });
     }
 }

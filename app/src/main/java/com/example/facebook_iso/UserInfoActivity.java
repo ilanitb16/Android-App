@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.facebook_iso.adapters.OwnPostsListAdapter;
 import com.example.facebook_iso.adapters.PostsListAdapter;
+import com.example.facebook_iso.adapters.UsersAdapter;
 import com.example.facebook_iso.entities.Post;
 import com.example.facebook_iso.entities.User;
 import com.example.facebook_iso.login.Login_Page;
@@ -24,6 +25,7 @@ import java.util.List;
 public class UserInfoActivity extends AppCompatActivity {
     private User user;
     private boolean isFriend;
+    public static OwnPostsListAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,7 +73,7 @@ public class UserInfoActivity extends AppCompatActivity {
             });
         }
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        OwnPostsListAdapter adapter = new OwnPostsListAdapter(this);
+        adapter = new OwnPostsListAdapter(this);
         recyclerView.setAdapter(adapter);
         adapter.setOwnPosts(user.getUserPosts());
     }
@@ -81,7 +83,7 @@ public class UserInfoActivity extends AppCompatActivity {
         if (checking.getUsername().equals(FeedPage.owner.getUsername())){
             return true;
         }
-        Login_Page.userViewModel.getUserFriends(FeedPage.owner);
+        FeedPage.userViewModel.getUserFriends(FeedPage.owner);
         for (User friend : FeedPage.owner.getFriends()) {
             if (friend.getUsername().equals(checking.getUsername())) {
                 return true;

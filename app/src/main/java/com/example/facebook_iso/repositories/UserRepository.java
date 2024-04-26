@@ -1,10 +1,16 @@
 package com.example.facebook_iso.repositories;
 
+import android.content.Context;
+
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+
 import com.example.facebook_iso.UserDao;
 import com.example.facebook_iso.api.UserAPI;
 import com.example.facebook_iso.entities.Post;
 import com.example.facebook_iso.entities.User;
 import com.example.facebook_iso.login.Login_Page;
+
+import java.util.concurrent.CompletableFuture;
 
 public class UserRepository {
     private final UserAPI userAPI;
@@ -13,8 +19,8 @@ public class UserRepository {
         userAPI = new UserAPI();
     }
 
-    public void signUp(User user) {
-        userAPI.signUp(user);
+    public void signUp(User user, Context context) {
+        userAPI.signUp(user, context);
     }
 
     public void signIn(String username, String password) {
@@ -24,8 +30,12 @@ public class UserRepository {
         userAPI.updateUser(user);
     }
 
-    public void getUser(String username, Post post) {
-        userAPI.getUser(username, post);
+    public void getUser(String username, Post post, CompletableFuture<Void> completion, Boolean isLast) {
+        userAPI.getUser(username, post, completion, isLast);
+    }
+
+    public void getUserRequests(String username, SwipeRefreshLayout swipeRefreshLayout) {
+        userAPI.getUserRequests(username, swipeRefreshLayout);
     }
 
     public void deleteUser(User user) {

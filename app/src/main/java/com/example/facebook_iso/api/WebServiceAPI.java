@@ -23,17 +23,11 @@ public interface WebServiceAPI {
     @GET("api/users/{id}/posts")
     Call<ArrayList<JsonObject>> getUserPosts(@Path("id") String userId, @Header("authorization") String token);
 
-
-
-
      @POST("api/users/{id}/posts")
     Call<JsonObject> createPost(@Path("id") String userId, @Body Object jsonUser, @Header("authorization") String token);
 
-
     @PUT("api/users/{id}/posts/{pid}")
-    Call<JsonObject> updatePost(@Path("id") String userId, @Path("pid") int postId, @Body Object jsonUser, @Header("authorization") String token);
+    Call<JsonObject> updatePost(@Path("id") String userId, @Path("pid") String postId, @Body Object jsonUser, @Header("authorization") String token);
     @DELETE("api/users/{id}/posts/{pid}")
-    Call<JsonObject> deletePost(@Path("id") String userId, @Path("pid") int postId, @Header("authorization") String token);
-
-
+    Call<JsonObject> deletePost(@Path("id") String userId, @Path("pid") String postId, @Header("authorization") String token);
 }

@@ -8,7 +8,9 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.provider.MediaStore;
+import android.util.Base64;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -24,7 +26,11 @@ import com.example.facebook_iso.R;
 import com.example.facebook_iso.editHandler.DataSaver;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 
 public class picture extends Activity {
 
@@ -75,10 +81,20 @@ public class picture extends Activity {
         if (is_camera) {
             if (resultCode == RESULT_OK) {
                 if (requestCode == CAMERA_REQ_CODE) {
-                    Bitmap pic = (Bitmap) (data.getExtras().get("data"));
-                    Uri picUri = getImageUri(this, pic);
-                    helper.set_pic(picUri);
-                    profilePic.setImageURI(picUri);
+                    if (data != null && data.getExtras() != null && data.getExtras().containsKey("data")){
+                        Bitmap pic = (Bitmap) (data.getExtras().get("data"));
+                        if(pic != null)
+                        {
+                            Uri picUri = getImageUri(this, pic);
+                            helper.set_pic(picUri);
+                            helper.setImageString(getImageBase64(pic));
+                            profilePic.setImageURI(picUri);
+                        }
+                    }
+                    else
+                    {
+                        Toast.makeText(this, "Failed to capture image", Toast.LENGTH_SHORT).show();
+                    }
                 }
             }
         }else {
@@ -95,6 +111,14 @@ public class picture extends Activity {
 
                     if (photo != null) {
                         helper.set_pic(photo);
+                        try
+                        {
+                            helper.setImageString(getImageBase64(decodeUri(photo)));
+                        }
+                        catch (FileNotFoundException e)
+                        {
+                            throw new RuntimeException(e);
+                        }
 
                         profilePic.setImageURI(photo);
                     } else {
@@ -153,6 +177,39 @@ public class picture extends Activity {
     }
 
     public Uri getImageUri(Context context, Bitmap bitmap) {
+        if (bitmap == null) {
+            return null; // Return null if bitmap is null
+        }
+
+        try {
+            // Create a file to save the bitmap
+            File imagesFolder = new File(context.getExternalFilesDir(Environment.DIRECTORY_PICTURES), "YourAppImages");
+            if (!imagesFolder.exists()) {
+                if (!imagesFolder.mkdirs()) {
+                    return null; // Failed to create directory
+                }
+            }
+
+            // Generate a unique file name
+            String fileName = "image_" + System.currentTimeMillis() + ".jpg";
+            File imageFile = new File(imagesFolder, fileName);
+
+            // Write the bitmap to the file
+            try (FileOutputStream fos = new FileOutputStream(imageFile)) {
+                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, fos);
+            }
+
+            // Return the Uri of the saved image file
+            return Uri.fromFile(imageFile);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null; // Return null in case of any exception
+        }
+    }
+
+
+
+    public static String getImageBase64(Bitmap bitmap) {
         int maxWidth = 1200;
         int maxHeight = 1200;
 
@@ -161,17 +218,20 @@ public class picture extends Activity {
 
         float scaleFactor = Math.min((float) maxWidth / width, (float) maxHeight / height);
 
-
         int scaledWidth = Math.round(width * scaleFactor);
         int scaledHeight = Math.round(height * scaleFactor);
         bitmap = Bitmap.createScaledBitmap(bitmap, scaledWidth, scaledHeight, true);
 
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream);
+        byte[] byteArray = byteArrayOutputStream.toByteArray();
 
-        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
-
-        String path = MediaStore.Images.Media.insertImage(context.getContentResolver(), bitmap, "Title", null);
-        return Uri.parse(path);
+        return Base64.encodeToString(byteArray, Base64.DEFAULT);
     }
 
+    public static Uri base64ToUri(String base64String) {
+        byte[] decodedString = Base64.decode(base64String, Base64.DEFAULT);
+        String imageData = new String(decodedString, StandardCharsets.UTF_8);
+        return Uri.parse(imageData);
+    }
 }

@@ -13,8 +13,11 @@ import java.util.List;
 @Entity
 public class Post {
     @PrimaryKey(autoGenerate = true)
-    @SerializedName("_id")
+    @SerializedName("id")
     private int id;
+
+    @SerializedName("_id")
+    private String postId;
 
     @SerializedName("username")
     private String username;
@@ -54,7 +57,8 @@ public class Post {
         this.comments = new ArrayList<>();
     }
 
-    public Post(String title, String description, String date, String img, User user) {
+    public Post(String postId, String title, String description, String date, String img, User user) {
+        this.postId = postId;
         this.createDate = date;
         this.title = title;
         this.description = description;
@@ -82,6 +86,15 @@ public class Post {
         this.id = id;
     }
 
+    public String getPostId()
+    {
+        return postId;
+    }
+
+    public void setPostId(String postId)
+    {
+        this.postId = postId;
+    }
     public String getTitle() {
         return title;
     }

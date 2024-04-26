@@ -12,7 +12,7 @@
     </style>
 
     <style name="BACKGROUND_FEED">
-        <item name="android:background">#18191A</item>
+        <item name="android:background">#000000</item>
     </style>
 
     <style name="BACKGROUND_POST">
@@ -20,7 +20,7 @@
     </style>
 
     <style name="BACKGROUND_MENU">
-        <item name="android:background">#18191A</item>
+        <item name="android:background">#000000</item>
     </style>
 
 </resources>

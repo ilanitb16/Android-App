@@ -23,6 +23,8 @@ public class User {
     private String token;
     @Ignore
     private List<Post> userPosts;
+
+
     public User() {
         this.friends = new ArrayList<>();
         this.friends_request = new ArrayList<>();
@@ -128,7 +130,7 @@ public class User {
     public void setId(int id) {
         this.id = id;
     }
-      
+
     public boolean findFriend(User user) {
         for (User friend : friends) {
             if (friend.getUsername().equals(username)){

@@ -11,6 +11,7 @@ public class DataSaver {
     private Post post;
     private Uri imagePost;
 
+    private String imageString;
     private FeedPage feedPage;
 
     private Boolean edit;
@@ -19,6 +20,17 @@ public class DataSaver {
     private DataSaver() {
 
     }
+
+    public String getImageString()
+    {
+        return imageString;
+    }
+
+    public void setImageString(String imageString)
+    {
+        this.imageString = imageString;
+    }
+
     public static synchronized DataSaver getInstance() {
         if (instance == null) {
             instance = new DataSaver();
