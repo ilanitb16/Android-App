@@ -12,7 +12,7 @@
     </style>
 
     <style name="BACKGROUND_FEED">
-        <item name="android:background">#D2D7DD</item>
+        <item name="android:background">#F0F2F5</item>
     </style>
 
     <style name="BACKGROUND_POST">

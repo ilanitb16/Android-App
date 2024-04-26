@@ -1,201 +1,168 @@
 package com.example.facebook_iso.entities;
 
+import android.net.Uri;
+import android.view.Gravity;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.LinearLayout;
+import android.widget.PopupWindow;
+
+import androidx.recyclerview.widget.RecyclerView;
 import androidx.room.Entity;
-import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
+import com.example.facebook_iso.R;
+import com.example.facebook_iso.adapters.PostsListAdapter;
+import com.example.facebook_iso.commentPost.CommentPost;
 import com.example.facebook_iso.editHandler.ThreeDots;
-import com.google.gson.annotations.SerializedName;
 
-import java.util.ArrayList;
-import java.util.List;
+import android.view.LayoutInflater;
 
 @Entity
 public class Post {
     @PrimaryKey(autoGenerate = true)
-    @SerializedName("id")
-    private int id;
 
-    @SerializedName("_id")
-    private String postId;
-
-    @SerializedName("username")
-    private String username;
-
-    @SerializedName("create_date")
-    private String createDate;
-
-    @SerializedName("description")
-    private String description;
-
-    @SerializedName("img")
-    private String img;
-
-    @SerializedName("title")
+    private String id;
+    private String author;
+    private String date;
     private String title;
-
-    @SerializedName("profilePic")
-    private String profilePic;
-    @Ignore
+    private String description;
     private int likes;
-    @Ignore
+    private Uri img;
+    private Uri author_photo;
     private boolean isLiked;
-    @Ignore
-    private boolean openThreeDots;
-    @Ignore
-    private ThreeDots threeDots;
-    @Ignore
-    private Boolean isFriend;
-    @Ignore
-    private List<Comment> comments;
-    @Ignore
-    private User user;
+    private boolean openComment;
+    private boolean threeDots;
+    private RecyclerView lstPosts;
 
-    public Post() {
-        this.isLiked = false;
-        this.openThreeDots = false;
-        this.comments = new ArrayList<>();
-    }
+    private View postLayout;
 
-    public Post(String postId, String title, String description, String date, String img, User user) {
-        this.postId = postId;
-        this.createDate = date;
+    private CommentPost commentPost;
+
+    private  PostsListAdapter adapter;
+    public Post(String id, String title, String author, Uri author_photo, String description, String date, Uri img, RecyclerView lstPosts,  PostsListAdapter adapter) {
+        this.id = id;
+        this.author = author;
+        this.date = date;
         this.title = title;
         this.description = description;
         this.likes = 0;
         this.img = img;
+        this.author_photo = author_photo;
         this.isLiked = false;
-        this.openThreeDots = false;
-        this.comments = new ArrayList<>();
-        this.user = user;
+        this.openComment = false;
+        this.threeDots = false;
+        this.adapter = adapter;
+        this.lstPosts = lstPosts;
+        this.commentPost = new CommentPost(this, adapter);
     }
 
-    public void addComment(Comment comment) {
-        comments.add(comment);
-    }
-
-    public void deleteComment(Comment comment) {
-        comments.remove(comment);
-    }
-
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public String getAuthor() {
+        return author;
+    }
+    public String getDate() {
+        return date;
     }
 
-    public String getPostId()
-    {
-        return postId;
-    }
-
-    public void setPostId(String postId)
-    {
-        this.postId = postId;
-    }
     public String getTitle() {
         return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
     }
 
     public int getLikes() {
         return likes;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
+    public Uri getImg() {
+        return img;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
     public void setLikes(int likes) {
         this.likes = likes;
     }
 
-    public String getImg() {
-        return img;
+    public Uri getAuthorPhoto() {
+        return author_photo;
     }
 
-    public void setImg(String img) {
+    public PostsListAdapter getAdapter() {
+        return adapter;
+    }
+
+    public void toggleLike() {
+        isLiked = !isLiked;
+        if (isLiked) {
+            setLikes(getLikes() + 1);
+        } else {
+            setLikes(getLikes() - 1);
+        }
+        if (adapter != null) {
+            int position = adapter.getPosts().indexOf(this);
+            if (position != RecyclerView.NO_POSITION) {
+                adapter.notifyItemChanged(position);
+            }
+        }
+    }
+
+    public void toggleShare(View view) {
+        int[] location = new int[2];
+        view.getLocationOnScreen(location);
+        int x = location[0];
+        int y = location[1];
+        View menuView = LayoutInflater.from(view.getContext()).inflate(R.layout.sharebutton, null);
+        PopupWindow popupWindow = new PopupWindow(menuView, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT, true);
+        popupWindow.showAtLocation(view, Gravity.NO_GRAVITY, x, y);
+    }
+
+    public void toggleComment(View v) {
+        openComment = !openComment;
+        LinearLayout commentsSection = postLayout.findViewById(R.id.commentsSection);
+        if (openComment) {
+            commentsSection.setVisibility(View.VISIBLE);
+        } else {
+            commentsSection.setVisibility(View.GONE);
+        }
+    }
+
+
+    public void toggleThreeDots(View view) {
+        View menuView = LayoutInflater.from(view.getContext()).inflate(R.layout.threedots, null);
+        PopupWindow popupWindow = new PopupWindow(menuView, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT, true);
+        popupWindow.showAsDropDown(view);
+        ThreeDots threeDots = new ThreeDots(menuView, adapter, lstPosts, this, popupWindow);
+    }
+
+    public void setPhotoUri(Uri img) {
         this.img = img;
     }
 
-    public boolean isLiked() {
-        return isLiked;
+    public void setPostLayout(View layout) {
+        this.postLayout = layout;
     }
 
-    public void setLiked(boolean liked) {
-        isLiked = liked;
+    public View getPostLayout() {
+        return postLayout;
     }
 
-    public void setOpenThreeDots(boolean openThreeDots) {
-        this.openThreeDots = openThreeDots;
-    }
-
-    public boolean isOpenThreeDots() {
-        return openThreeDots;
-    }
-
-    public ThreeDots getThreeDots() {
-        return threeDots;
-    }
-
-    public void setThreeDots(ThreeDots threeDots) {
-        this.threeDots = threeDots;
-    }
-
-    public Boolean getFriend() {
-        return isFriend;
-    }
-
-    public void setFriend(Boolean friend) {
-        isFriend = friend;
-    }
-
-    public List<Comment> getComments() {
-        return comments;
-    }
-
-    public void setComments(List<Comment> comments) {
-        this.comments = comments;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public String getProfilePic() {
-        return profilePic;
-    }
-
-    public void setProfilePic(String profilePic) {
-        this.profilePic = profilePic;
-    }
-
-    public String getCreateDate() {
-        return createDate;
-    }
-
-    public void setCreateDate(String createDate) {
-        this.createDate = createDate;
+    public CommentPost getCommentPost() {
+        return commentPost;
     }
 }

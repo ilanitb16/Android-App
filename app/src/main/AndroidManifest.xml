@@ -2,24 +2,18 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.CAMERA" />
-    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES"/>
-    <uses-permission android:name="android.permission.READ_MEDIA_VIDEO"/>
     <uses-feature
         android:name="android.hardware.camera"
-        android:required="true" />
-    <uses-feature
-        android:name="android.hardware.camera.autofocus"
-        android:required="true" />
+        android:required="false" />
 
+    <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission
         android:name="android.permission.READ_EXTERNAL_STORAGE"
         android:maxSdkVersion="32" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
-        android:name=".MyApplication"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -31,7 +25,7 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
-            android:name=".SplashPage"
+            android:name=".Splash_Page"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -40,40 +34,19 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".OwnPostsActivity"
+            android:name=".picturePost"
             android:exported="false" />
         <activity
-            android:name=".UserInfoActivity"
+            android:name=".Feed_Page"
             android:exported="false" />
         <activity
-            android:name=".Requests"
+            android:name=".picture"
             android:exported="false" />
         <activity
-            android:name=".update_user_activity"
+            android:name=".signup_page"
             android:exported="false" />
         <activity
-            android:name=".menuHandler.Friends"
-            android:exported="false" />
-        <activity
-            android:name=".menuHandler.MyAccount"
-            android:exported="false" />
-        <activity
-            android:name=".FeedPage"
-            android:exported="false" />
-        <activity
-            android:name=".menuHandler.New_post"
-            android:exported="false" />
-        <activity
-            android:name=".editHandler.EditPost"
-            android:exported="false" />
-        <activity
-            android:name=".picture.picture"
-            android:exported="false" />
-        <activity
-            android:name=".login.SignupPage"
-            android:exported="false" />
-        <activity
-            android:name=".login.Login_Page"
+            android:name=".Login_Page"
             android:exported="false">
         </activity>
     </application>

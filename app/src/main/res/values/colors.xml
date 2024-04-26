@@ -1,16 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <color name="black">#000000</color>
-    <color name="white">#FFFFFF</color>
-    <color name="gray">#BCC4C6CC</color>
-    <color name="lightBlack">#BC797979</color>
-    <color name="darkGray">#BC7E7E7E</color>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
     <color name="blue">#0943EF</color>
-    <color name="BACKGROUND_FEED_LIGHT">#F0F2F5</color>
-    <color name="BACKGROUND_POST_LIGHT">#FFFFFF</color>
-    <color name="BACKGROUND_FEED_DARK">#18191A</color>
-    <color name="BACKGROUND_POST_DARK">#242526</color>
-    <color name="Black" />
-
+    <color name="gray">#BCC4C6CC</color>
 </resources>

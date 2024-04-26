@@ -11,6 +11,4 @@
     <string name="already_have_an_account">Already have an account?</string>
     <string name="sign_up_btn">Sign Up</string>
     <string name="finish_reg">Finish</string>
-    <!--    <string name="BaseUrl">http://10.0.2.2:3000/</string>-->
-    <string name="BaseUrl">https://fb-createex.azurewebsites.net/</string>
 </resources>

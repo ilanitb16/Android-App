@@ -4,15 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    style="@style/BACKGROUND_FEED"
-    tools:context=".SplashPage">
+    android:background="@color/white"
+    tools:context=".Splash_Page">
 
     <TextView
         android:id="@+id/splashTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Facebook ISO"
-        style="@style/TEXT"
+        android:textColor="@color/black"
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/splashImage"

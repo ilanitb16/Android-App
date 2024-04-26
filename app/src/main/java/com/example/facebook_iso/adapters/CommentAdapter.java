@@ -1,5 +1,5 @@
 package com.example.facebook_iso.adapters;
-
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,32 +10,24 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.room.Ignore;
 
-import com.example.facebook_iso.Converters;
-import com.example.facebook_iso.FeedPage;
 import com.example.facebook_iso.R;
-import com.example.facebook_iso.entities.Comment;
 import com.example.facebook_iso.entities.Post;
 
-import java.util.ArrayList;
 import java.util.List;
-
 public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.CommentViewHolder> {
-
-    private List<Comment> comments;
-    private final Post post;
-    private int backgroundColor;
-    private int TextColor;
-    private final PostsListAdapter postsListAdapter;
-    @Ignore
-    private View postLayout;
-    public CommentAdapter(Post post, PostsListAdapter postListAdapter) {
-        this.comments = new ArrayList<>();
+    private List<String> comments;
+    private String user_name;
+    private Uri user_photo;
+    private Post post;
+    private PostsListAdapter adapter;
+    public CommentAdapter(List<String> comments, String user_name, Uri user_photo, Post post, PostsListAdapter adapter) {
+        this.comments = comments;
+        this.user_name = user_name;
+        this.user_photo =user_photo;
         this.post = post;
-        this.postsListAdapter = postListAdapter;
+        this.adapter = adapter;
     }
 
     @NonNull
@@ -47,36 +39,48 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.CommentV
 
     @Override
     public void onBindViewHolder(@NonNull CommentViewHolder holder, int position) {
-        Comment currentComment = comments.get(position);
-        holder.userNameComment.setText(currentComment.getAuthor());
-        holder.userPhotoComment.setImageURI(Converters.fromString(currentComment.getAuthor_photo()));
-        holder.commentText.setText(currentComment.getContext());
+        int currentPosition = holder.getAdapterPosition();
+        String comment = comments.get(currentPosition);
+        holder.commentText.setText(comment);
 
-        toggleTheme();
-        holder.commentLayout.setBackgroundColor(backgroundColor);
-        holder.commentText.setTextColor(TextColor);
-        holder.userNameComment.setTextColor(TextColor);
-        holder.commentEdit.setTextColor(TextColor);
+        holder.editButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
+                holder.updateComment.setVisibility(View.VISIBLE);
+                holder.commentEdit.setVisibility(View.VISIBLE);
+                holder.commentText.setVisibility(View.GONE);
+                holder.editButton.setVisibility(View.GONE);
+                holder.deleteButton.setVisibility(View.GONE);
+                String currentComment = comments.get(currentPosition);
+                holder.commentEdit.setText(currentComment);
+                holder.updateComment.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
 
-        holder.editButton.setOnClickListener(v -> {
-            holder.updateComment.setVisibility(View.VISIBLE);
-            holder.commentEdit.setVisibility(View.VISIBLE);
-            holder.commentText.setVisibility(View.GONE);
-            holder.editButton.setVisibility(View.GONE);
-            holder.deleteButton.setVisibility(View.GONE);
+                        EditText commentEdit = holder.itemView.findViewById(R.id.commentEdit);
+                        String newComment = commentEdit.getText().toString();
+                        holder.commentText.setText(newComment);
+                        holder.updateComment.setVisibility(View.GONE);
+                        holder.commentEdit.setVisibility(View.GONE);
+                        holder.commentText.setVisibility(View.VISIBLE);
+                        holder.editButton.setVisibility(View.VISIBLE);
+                        holder.deleteButton.setVisibility(View.VISIBLE);
+                        post.getCommentPost().onEditClick(currentComment, newComment);
 
-            holder.updateComment.setOnClickListener(v1 -> {
-                editComment(currentComment);
-                holder.updateComment.setVisibility(View.GONE);
-                holder.commentEdit.setVisibility(View.GONE);
-                holder.commentText.setVisibility(View.VISIBLE);
-                holder.editButton.setVisibility(View.VISIBLE);
-                holder.deleteButton.setVisibility(View.VISIBLE);
-            });
+                    }
+                });
+            }
+        });
+        holder.deleteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                post.getCommentPost().onDeleteClick(comments.get(currentPosition));
+            }
         });
 
-        holder.deleteButton.setOnClickListener(v -> deleteComment(currentComment));
+        holder.userNameComment.setText(user_name);
+        holder.userPhotoComment.setImageURI(user_photo);
     }
 
     @Override
@@ -92,7 +96,6 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.CommentV
         ImageView userPhotoComment;
         EditText commentEdit;
         Button updateComment;
-        View commentLayout;
 
         CommentViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -103,45 +106,6 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.CommentV
             userPhotoComment = itemView.findViewById(R.id.userPhotoComment);
             commentEdit = itemView.findViewById(R.id.commentEdit);
             updateComment = itemView.findViewById(R.id.updateComment);
-            commentLayout = itemView.findViewById(R.id.commentLayout);
         }
-    }
-    public void toggleTheme() {
-        Boolean isDarkMode = FeedPage.isDarkMode;
-        backgroundColor = isDarkMode ?
-                ContextCompat.getColor(FeedPage.feedAdapter.getContext(), R.color.BACKGROUND_POST_DARK) :
-                ContextCompat.getColor(FeedPage.feedAdapter.getContext(), R.color.BACKGROUND_POST_LIGHT);
-        TextColor = isDarkMode ?
-                ContextCompat.getColor(FeedPage.feedAdapter.getContext(), R.color.white) :
-                ContextCompat.getColor(FeedPage.feedAdapter.getContext(), R.color.black);
-    }
-
-
-    public void setComments(List<Comment> comments) {
-        this.comments = comments;
-    }
-    public void addComment(Comment comment) {
-        comments.add(0, comment);
-        post.addComment(comment);
-        notifyItemInserted(0);
-    }
-
-    public void deleteComment(Comment comment) {
-        comments.remove(comment);
-        postsListAdapter.refreshComments();
-        notifyDataSetChanged();
-    }
-
-    public void editComment(Comment comment) {
-        EditText commentEdit = postLayout.findViewById(R.id.commentEdit);
-        String commentInserted = commentEdit.getText().toString();
-        comment.setContext(commentInserted);
-        commentEdit.setText(commentInserted);
-        postsListAdapter.refreshComments();
-        notifyDataSetChanged();
-    }
-
-    public void setPostLayout(View postLayout) {
-        this.postLayout = postLayout;
     }
 }
