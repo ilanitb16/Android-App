@@ -1,40 +1,82 @@
 [
   {
-    "_id": "660fa70009a14a3d76c8c1fc",
-    "username": "ilanit berditchevski",
-    "description": "The prettiest dog in the world.",
+    "title": "corvette c8",
+    "author": "ori levi",
+    "author_photo": "profile1",
+    "description": "car1",
+    "date": "4/2/2024",
+    "img": "img1"
+  },
+  {
     "title": "my dog <3",
-    "create_date": "26/1/2024",
-    "img": laylaflower,
-    "update_date": "26/1/2024",
-    "profilePic": profile2
-  },{
-    "_id": "660fa70009a14a3d76c8c1fc",
-    "username": "ilanit berditchevski",
+    "author": "ilanit berditchevski",
+    "author_photo": "profile2",
     "description": "The prettiest dog in the world.",
-    "title": "my dog <3",
-    "create_date": "26/1/2024",
-    "img": laylaflower,
-    "update_date": "26/1/2024",
-    "profilePic": profile2
-  },{
-    "_id": "660fa70009a14a3d76c8c1fc",
-    "username": "ilanit berditchevski",
-    "description": "The prettiest dog in the world.",
-    "title": "my dog <3",
-    "create_date": "26/1/2024",
-    "img": laylaflower,
-    "update_date": "26/1/2024",
-    "profilePic": profile2
-  },{
-    "_id": "660fa70009a14a3d76c8c1fc",
-    "username": "ilanit berditchevski",
-    "description": "The prettiest dog in the world.",
-    "title": "my dog <3",
-    "create_date": "26/1/2024",
-    "img": laylaflower,
-    "update_date": "26/1/2024",
-    "profilePic": profile2
+    "date": "3/2/2024",
+    "img": "laylaflower"
+  },
+  {
+    "title": "mercedes gts",
+    "author": "shmuel granot",
+    "author_photo": "profile3",
+    "description": "car2",
+    "date": "2/2/2024",
+    "img": "img3"
+  },
+  {
+    "title": "koenigsegg one",
+    "author": "dvir yazdi",
+    "author_photo": "profile4",
+    "description": "car3",
+    "date": "1/2/2024",
+    "img": "img4"
+  },
+  {
+    "title": "aston martin",
+    "author": "tzuriel luzon",
+    "author_photo": "profile5",
+    "description": "car4",
+    "date": "30/1/2024",
+    "img": "img5"
+  },
+  {
+    "title": "lamborghini aventador svj",
+    "author": "noam leibovich",
+    "author_photo": "profile6",
+    "description": "car5",
+    "date": "29/1/2024",
+    "img": "img6"
+  },
+  {
+    "title": "with my best friend",
+    "author": "daniel cohen",
+    "author_photo": "daniel",
+    "description": "some quality time in Gan Yavne with the best dog ever!",
+    "date": "28/1/2024",
+    "img": "layladaniel"
+  },
+  {
+    "title": "dogging :)",
+    "author": "layla berdit",
+    "author_photo": "laylaSmiling",
+    "description": "<3",
+    "date": "27/1/2024",
+    "img": "laylaflower2"
+  },
+  {
+    "title": "toyota supra",
+    "author": "arnon lutsky",
+    "author_photo": "profile9",
+    "description": "car7",
+    "date": "26/1/2024",
+    "img": "img9"
+  },
+  {
+    "title": "porche 918-spider",
+    "author": "or hazav",
+    "author_photo": "profile10",
+    "description": "car8",
+    "date": "25/1/2024",
+    "img": "img10"
   }
-
 ]
