@@ -9,6 +9,7 @@ This guide explains how to manage posts and view them in different clients.
 - Press the new post button on the menu on the left.
 - Add an image, a title and description.
 - Press post.
+
 ![image](https://github.com/ilanitb16/facebook-ex2/assets/97344492/73b70179-23e8-4974-b4c2-545c907d26cd)
 
 ## Editing Posts
