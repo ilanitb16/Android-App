@@ -24,7 +24,7 @@ Follow the step-by-step instructions below to seamlessly login to your existing 
 ### ANDROID
 1. After running the Android app, the following screen will appear:
 
- ![WhatsApp Image 2024-04-28 at 22 19 02_8ebea380](https://github.com/ilanitb16/Android-App/assets/97344492/4967f4c3-1934-4611-b168-4f3d95e26dfc)
+![image](https://github.com/ilanitb16/Android-App/assets/97344492/91114da7-c246-4f54-8c6e-7469b9740c08)
 
 2. If you already have an account, type in your username and password. Incorrect username or password will result in failure and access to the website will be denied.
 
