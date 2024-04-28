@@ -16,26 +16,31 @@ Before setting up the web application, ensure you have the following prerequisit
 - Android Studio
 
 ## Installation Steps
-1.	Clone the repository to your local machine:
-```
-git clone https://github.com/ilanitb16/dynamic-client-server.git
-```
+1.	Clone the repository to your local machine: `git clone https://github.com/ilanitb16/dynamic-client-server.git`
 2.	Navigate to the project directory:
-``` 
-cd client-react
+`cd client-react
 OR
 cd client-android
-```
-3.	Install dependencies using npm:
-```
- npm install 
-```
+`
+3.	Install dependencies using npm:`npm install `
 
-IMPORTANT NOTE:
+## Running the app
 
-Before running the android app, navigate to the Java directory, then com.isofacebook, then api and apiendpoints.
-change: public static final String baseUrl = "http://10.0.0.17:3000"; to the ip address of the computer you run the node.js on.
-Both the phone and the computer should be connected to the same network.
+### Android: 
+
+Before running the android app, follow the following steps:
+1. `cd Java`
+2. `cd com.isof.acebook`
+3. `cd api`
+4. `cd endPoints`
+5. change the first line `public static final String baseUrl = "http://10.0.0.17:3000"; ` to the ip address of the computer the node.js is ran on.
+IMPORTANT NOTE: Both the phone and the computer should be connected to the same network.
+
+Then run the app.
+
+### React:
+`npm start`
+
 ## TCP server
 - Run the server using the VM or any linux computer.
 
