@@ -46,12 +46,6 @@ Then run the app.
 
 ## Node.js server
 1. Edit the .env file. Change the ip address to the address of your machine (VM).
-2. Navigate to the server directory:
-```
-cd server
-```
-3. run
- ```
- node index.js
- ```
+2. Navigate to the server directory: `cd server`
+3. run `node index.js`
 4. When asking to run in a different port- type yes. 
