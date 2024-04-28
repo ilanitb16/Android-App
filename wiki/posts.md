@@ -25,6 +25,8 @@ This guide explains how to manage posts and view them in different clients.
 A page full of posts only the current user posted. Is accessible by pressing the name of the user displayed in the right corner of the screen.
 ![image](https://github.com/ilanitb16/facebook-ex2/assets/97344492/0c1de117-e3d8-44f8-809c-016a9ba35d88)
 
+## Blacklisted links
+Using the integrated bloomfilter code, the website will not allow posting any posts containing the blacklisted urls. If a user attempts to do so, the post will not get published and an error will occur. 
 
 
 # Android
@@ -52,5 +54,7 @@ A page full of posts only the current user posted. Is accessible by pressing the
 A page full of posts only the current user posted. Is accessible by pressing my account on the menu. Then my posts.
 ![image](https://github.com/ilanitb16/Android-App/assets/97344492/3c3f18ef-b273-47cf-b8d1-69f417389962)
 
-
+## Blacklisted links
+Using the integrated bloomfilter code, the website will not allow posting any posts containing the blacklisted urls. If a user attempts to do so, the post will not get published and an error will occur. 
+![image](https://github.com/ilanitb16/Android-App/assets/97344492/bf51d8c9-c5e8-457f-b846-aae62ea200b9)
 
