@@ -72,8 +72,8 @@ Dark mode/light mode can be toggled from the settings menu.
   <img width="196" alt="image" src="https://github.com/ShmuelGranot/Facebook-iso-APP/assets/97344492/96d4501b-4c44-4c41-84fc-3c94820a467f">
 
 -User + User's posts:
- <img width="181" alt="image" src="https://github.com/ShmuelGranot/Facebook-iso-APP/assets/97344492/1b0c044a-b763-4ae7-95ac-6ad2aecdf592">
-  (after pressing the three dots the menu with the options: "edit" and delete" is opening, while you are in the User Profile section you can see all the posts of the current user, you can see the picture from the right))
 
+![image](https://github.com/ilanitb16/Android-App/assets/97344492/2b602d93-1611-41e8-8338-b1282b97ca3c)
+  
 
 
