@@ -3,16 +3,16 @@ plugins {
 }
 
 android {
-    namespace = "com.example.facebook_iso"
+    namespace = "com.iso.facebook"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.example.facebook_iso"
-        minSdk = 24
+        applicationId = "com.iso.facebook"
+        minSdk = 25
+        //noinspection EditedTargetSdkVersion
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
-
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -23,27 +23,37 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+            signingConfig = signingConfigs.getByName("debug")
         }
     }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
     }
+    buildFeatures {
+        viewBinding = true
+    }
 }
 
 dependencies {
-
     implementation("androidx.appcompat:appcompat:1.6.1")
     implementation("com.google.android.material:material:1.11.0")
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
-    implementation("androidx.room:room-common:2.6.1")
-    implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.1.0")
-    implementation("androidx.camera:camera-core:1.3.1")
-    implementation("androidx.camera:camera-lifecycle:1.3.1")
+    implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.7.0")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.7.0")
+    implementation("androidx.navigation:navigation-fragment:2.7.7")
+    implementation("androidx.navigation:navigation-ui:2.7.7")
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
-    implementation("com.squareup.okhttp3:okhttp:4.9.2")
-    implementation("com.google.code.gson:gson:2.10")
+    implementation ("com.google.code.gson:gson:2.10.1")
+    implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.1.0")
+    implementation("androidx.camera:camera-core:1.3.3")
+    implementation("androidx.camera:camera-lifecycle:1.3.3")
+    implementation("de.hdodenhof:circleimageview:3.1.0")
     implementation("com.android.volley:volley:1.2.1")
+    implementation("com.android.support:multidex:1.0.3")
+    implementation("com.google.android.material:material:1.13.0-alpha01")
+    implementation("info.hoang8f:android-segmented:1.0.6")
+    implementation("com.google.android.material:material:1.13.0-alpha01")
 }

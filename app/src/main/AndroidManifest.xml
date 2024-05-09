@@ -6,48 +6,63 @@
         android:name="android.hardware.camera"
         android:required="false" />
 
-    <uses-permission android:name="android.permission.CAMERA" />
-    <uses-permission
-        android:name="android.permission.READ_EXTERNAL_STORAGE"
-        android:maxSdkVersion="32" />
-    <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
+    <uses-permission android:name="android.permission.READ_MEDIA_VIDEO" />
 
     <application
-        android:allowBackup="true"
+        android:allowBackup="false"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.Facebookiso"
+        android:theme="@style/Theme.Facebook"
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
-            android:name=".Splash_Page"
+            android:name=".menu_pages.EditPost"
+            android:exported="false" />
+        <activity
+            android:name=".menu_pages.FriendsPage"
+            android:exported="false" />
+        <activity
+            android:name=".menu_pages.UserPosts"
+            android:exported="false" />
+        <activity
+            android:name=".menu_pages.EditProfile"
+            android:exported="false" />
+        <activity
+            android:name=".menu_pages.MyAccount"
+            android:exported="false" />
+        <activity
+            android:name=".menu_pages.CreatePost"
+            android:exported="false" />
+        <activity
+            android:name=".Navigation"
+            android:exported="false"
+            android:label="@string/title_activity_navigation"
+            android:theme="@style/Theme.Facebook.NoActionBar" />
+        <activity
+            android:name=".auth.SignUpScreen"
+            android:exported="false" />
+        <activity
+            android:name=".FeedScreen"
+            android:exported="false" />
+        <activity
+            android:name=".auth.LoginScreen"
+            android:exported="false" />
+        <activity
+            android:name=".SplashScreen"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-        <activity
-            android:name=".picturePost"
-            android:exported="false" />
-        <activity
-            android:name=".Feed_Page"
-            android:exported="false" />
-        <activity
-            android:name=".picture"
-            android:exported="false" />
-        <activity
-            android:name=".signup_page"
-            android:exported="false" />
-        <activity
-            android:name=".Login_Page"
-            android:exported="false">
         </activity>
     </application>
 

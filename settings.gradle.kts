@@ -13,6 +13,5 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "Facebook-iso"
+rootProject.name = "Facebook"
 include(":app")
- 

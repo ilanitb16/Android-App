@@ -1,26 +1,10 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Base.Theme.Facebookiso" parent="Theme.Material3.DayNight.NoActionBar">
+    <style name="Base.Theme.Facebook" parent="Theme.Material3.Light.NoActionBar">
         <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <item name="android:windowTranslucentStatus">true</item>
+        <item name="android:windowTranslucentNavigation">true</item>
     </style>
 
-    <style name="Theme.Facebookiso" parent="Base.Theme.Facebookiso" />
-
-    <style name="TEXT">
-        <item name="android:textColor">#FFFFFF</item>
-    </style>
-
-    <style name="BACKGROUND_FEED">
-        <item name="android:background">#18191A</item>
-    </style>
-
-    <style name="BACKGROUND_POST">
-        <item name="android:background">#242526</item>
-    </style>
-
-    <style name="BACKGROUND_MENU">
-        <item name="android:background">#18191A</item>
-    </style>
-
+    <style name="Theme.Facebook" parent="Base.Theme.Facebook" />
 </resources>

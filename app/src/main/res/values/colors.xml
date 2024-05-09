@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="blue">#0943EF</color>
-    <color name="gray">#BCC4C6CC</color>
+    <color name="primaryColor">#FF2669ff</color>
+    <color name="themeGray">#FFadadad</color>
+    <color name="cardBackgroundColor">#FFfbfbfb</color>
+    <color name="themeRed">#FFf32116</color>
+    <color name="textGrey">#FFa6a6a6</color>
+    <color name="themeLightGrey">#FFf1f3ff</color>
 </resources>

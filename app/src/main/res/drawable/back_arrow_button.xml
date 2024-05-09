@@ -1,0 +1,16 @@
+<!-- rounded_border_with_vector.xml -->
+<layer-list xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    tools:ignore="ExtraText">
+    <!-- Background with rounded border -->
+    <item>
+        <shape android:shape="rectangle">
+            <corners android:radius="12dp" /> <!-- Adjust the radius as per your preference for rounded corners -->
+            <stroke
+                android:width="0.8dp" android:color="@color/themeGray"/> <!-- Change the color of the border as needed -->
+        </shape>
+    </item>
+    <!-- Vector image -->
+    <item
+        android:drawable="@drawable/back_arrow" android:start="20sp" android:right="10sp" android:top="10sp" android:bottom="10sp"/> <!-- Set the vector image resource -->
+</layer-list>
