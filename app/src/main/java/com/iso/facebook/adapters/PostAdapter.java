@@ -1,8 +1,5 @@
 package com.iso.facebook.adapters;
 
-import static com.iso.facebook.FeedScreen.currentUser;
-import static com.iso.facebook.FeedScreen.currentUserFriends;
-
 import android.content.Context;
 import android.os.Build;
 import android.util.Log;
@@ -13,19 +10,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.iso.facebook.R;
-import com.iso.facebook.api.ApiService;
-import com.iso.facebook.api.endPoints;
-import com.iso.facebook.common.BottomSheet.BottomSheetUtils;
-import com.iso.facebook.common.ProgressDialogManager;
-import com.iso.facebook.common.UIToast;
 import com.iso.facebook.entities.Post;
-
-import org.json.JSONArray;
-import org.json.JSONObject;
 
 import java.util.List;
 
@@ -52,60 +40,6 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
     @Override
     public void onBindViewHolder(@NonNull PostViewHolder holder, int position) {
         Post post = postList.get(position);
-
-        if(currentUserFriends.stream()
-                .anyMatch(request -> request.getUsername().equals(post.getUsername())))
-        {
-            Log.d("checking", post.getUsername());
-            holder.feedMenuButton.setVisibility(View.INVISIBLE);
-        }
-        else
-        {
-            holder.feedMenuButton.setOnClickListener(new View.OnClickListener()
-            {
-                @Override
-                public void onClick(View view)
-                {
-                    BottomSheetUtils.showBottomSheet(((AppCompatActivity) context).getSupportFragmentManager(), "Friend Request", "Do you want to send request", "No", "Yes", R.drawable.add_friend, new View.OnClickListener()
-                    {
-                        @Override
-                        public void onClick(View view)
-                        {
-                            ProgressDialogManager.showProgressDialog(context, "Sending Request", "Please wait...");
-                            new ApiService(context).post(endPoints.request+post.getUsername() +"/friends", null, currentUser.getToken(), new ApiService.ApiCallback()
-                            {
-                                @Override
-                                public void onSuccess(JSONObject response)
-                                {
-                                    if(response.has("modifiedCount"))
-                                    {
-                                        UIToast.showToast(context, "Friend Request Send");
-                                    }
-                                    else
-                                    {
-                                        UIToast.showToast(context, "Request already sent");
-                                    }
-                                    ProgressDialogManager.dismissProgressDialog();
-                                }
-
-                                @Override
-                                public void onSuccess(JSONArray response)
-                                {
-                                    ProgressDialogManager.dismissProgressDialog();
-                                }
-
-                                @Override
-                                public void onError(String errorMessage)
-                                {
-                                    UIToast.showToast(context, errorMessage);
-                                    ProgressDialogManager.dismissProgressDialog();
-                                }
-                            });
-                        }
-                    });
-                }
-            });
-        }
 
         // Set data to views
         holder.feedPersonProfile.setImageURI(post.getProfilePic(context));
@@ -139,7 +73,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
 
             feedPersonProfile = itemView.findViewById(R.id.feed_person_profile);
             feedPersonName = itemView.findViewById(R.id.feed_person_name);
-            feedMenuButton = itemView.findViewById(R.id.add_friend);
+            feedMenuButton = itemView.findViewById(R.id.feed_menu_button);
             feedImage = itemView.findViewById(R.id.feed_image);
             feedTitle = itemView.findViewById(R.id.feed_title);
             feedDescription = itemView.findViewById(R.id.feed_description);

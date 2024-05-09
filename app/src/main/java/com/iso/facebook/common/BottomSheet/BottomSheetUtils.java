@@ -1,7 +1,10 @@
 package com.iso.facebook.common.BottomSheet;
 
+import android.content.Context;
 import android.view.View;
 import androidx.fragment.app.FragmentManager;
+
+import com.iso.facebook.common.BottomSheetDialog;
 
 public class BottomSheetUtils {
 
@@ -18,13 +21,6 @@ public class BottomSheetUtils {
                 icon,
                 rightButtonClick
         );
-        bottomSheet.show(fragmentManager, "ModalBottomSheet");
-    }
-
-    public static void showEditBottomSheet(FragmentManager fragmentManager,
-                                           View.OnClickListener deleteClickListener,
-                                       View.OnClickListener editClickListener) {
-        EditBottomSheetDialog bottomSheet = new EditBottomSheetDialog(editClickListener, deleteClickListener);
         bottomSheet.show(fragmentManager, "ModalBottomSheet");
     }
 }

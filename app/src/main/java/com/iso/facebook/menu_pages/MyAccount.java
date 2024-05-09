@@ -12,18 +12,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.iso.facebook.R;
-import com.iso.facebook.api.ApiService;
-import com.iso.facebook.api.endPoints;
-import com.iso.facebook.auth.LoginScreen;
-import com.iso.facebook.common.BottomSheet.BottomSheetUtils;
-import com.iso.facebook.common.ProgressDialogManager;
 import com.iso.facebook.common.SharedPreferencesManager;
-import com.iso.facebook.common.UIToast;
 import com.iso.facebook.common.keys;
 import com.iso.facebook.entities.CurrentUser;
-
-import org.json.JSONArray;
-import org.json.JSONObject;
 
 public class MyAccount extends AppCompatActivity
 {
@@ -75,43 +66,7 @@ public class MyAccount extends AppCompatActivity
             @Override
             public void onClick(View view)
             {
-                BottomSheetUtils.showBottomSheet(getSupportFragmentManager(),
-                        "Are you sure you want to delete your account?",
-                        "If you delete your account, all Friends, and posts will be gone forever :(",
-                        "Cancel",
-                        "Delete Account",
-                        R.drawable.logout_blue,
-                        new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                ProgressDialogManager.showProgressDialog(MyAccount.this, "Deleting Your account", "Please wait...");
-                                new ApiService(MyAccount.this).delete(endPoints.request+currentUser.get_id(), currentUser.getToken(), new ApiService.ApiCallback()
-                                {
-                                    @Override
-                                    public void onSuccess(JSONObject response)
-                                    {
-                                        ProgressDialogManager.dismissProgressDialog();
-                                        UIToast.showToast(MyAccount.this, "Account Deleted");
-                                        Intent intent = new Intent(MyAccount.this, LoginScreen.class);
-                                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                                        MyAccount.this.startActivity(intent);
-                                    }
 
-                                    @Override
-                                    public void onSuccess(JSONArray response)
-                                    {
-                                        ProgressDialogManager.dismissProgressDialog();
-                                    }
-
-                                    @Override
-                                    public void onError(String errorMessage)
-                                    {
-                                        UIToast.showToast(MyAccount.this, errorMessage);
-                                        ProgressDialogManager.dismissProgressDialog();
-                                    }
-                                });
-                            }
-                        });
             }
         });
         back_button.setOnClickListener(new View.OnClickListener()

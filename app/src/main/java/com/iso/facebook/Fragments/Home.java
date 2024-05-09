@@ -4,7 +4,6 @@ import static com.iso.facebook.FeedScreen.currentUser;
 import static com.iso.facebook.FeedScreen.drawerLayout;
 
 import android.annotation.SuppressLint;
-import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
@@ -23,7 +22,6 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
 
-import com.iso.facebook.FeedScreen;
 import com.iso.facebook.R;
 import com.iso.facebook.adapters.PostAdapter;
 import com.iso.facebook.api.ApiService;
@@ -32,8 +30,8 @@ import com.iso.facebook.common.ProgressDialogManager;
 import com.iso.facebook.common.SharedPreferencesManager;
 import com.iso.facebook.common.UIToast;
 import com.iso.facebook.common.keys;
+import com.iso.facebook.entities.CurrentUser;
 import com.iso.facebook.entities.Post;
-import com.iso.facebook.entities.User;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -64,7 +62,21 @@ public class Home extends Fragment
             @Override
             public void onSuccess(JSONArray response)
             {
-                getFriends(response);
+                postList.clear();
+                for(int i = 0; i < response.length(); i++)
+                {
+                    try
+                    {
+                        postList.add(Post.fromJson(String.valueOf(response.getJSONObject(i))));
+                    }
+                    catch (JSONException e)
+                    {
+                        UIToast.showToast(getActivity(), e.getMessage());
+                        ProgressDialogManager.dismissProgressDialog();
+                    }
+                }
+                postAdapter.notifyDataSetChanged();
+                ProgressDialogManager.dismissProgressDialog();
             }
 
             @Override
@@ -114,54 +126,5 @@ public class Home extends Fragment
     public void onResume()
     {
         super.onResume();
-    }
-
-
-    void getFriends(JSONArray responseArray)
-    {
-        new ApiService(getActivity()).get(endPoints.getUser +currentUser.getUsername(), currentUser.getToken(), new ApiService.ApiCallback()
-        {
-            @SuppressLint("NotifyDataSetChanged")
-            @RequiresApi(api = Build.VERSION_CODES.O)
-            @Override
-            public void onSuccess(JSONObject response)
-            {
-                ProgressDialogManager.dismissProgressDialog();
-                User user = User.fromJson(String.valueOf(response));
-                if(user != null)
-                {
-                    FeedScreen.currentUserFriends = user.getFriends();
-                }
-                SharedPreferencesManager.setObject(getActivity(), keys.user, user);
-                postList.clear();
-                for(int i = 0; i < responseArray.length(); i++)
-                {
-                    try
-                    {
-                        postList.add(Post.fromJson(String.valueOf(responseArray.getJSONObject(i))));
-                    }
-                    catch (JSONException e)
-                    {
-                        UIToast.showToast(getActivity(), e.getMessage());
-                        ProgressDialogManager.dismissProgressDialog();
-                    }
-                }
-                postAdapter.notifyDataSetChanged();
-                ProgressDialogManager.dismissProgressDialog();
-            }
-
-            @Override
-            public void onSuccess(JSONArray response)
-            {
-                ProgressDialogManager.dismissProgressDialog();
-            }
-
-            @Override
-            public void onError(String errorMessage)
-            {
-                UIToast.showToast(getActivity(), errorMessage);
-                ProgressDialogManager.dismissProgressDialog();
-            }
-        });
     }
 }

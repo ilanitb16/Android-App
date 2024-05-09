@@ -177,7 +177,7 @@ public class User {
             this.displayName = displayName;
         }
 
-        public Uri getProfilePic(Context context) {
+        public Uri getProfilePic() {
             return Convertors.base64ToUri(profilePic, context);
         }
 
@@ -216,7 +216,7 @@ public class User {
             this.displayName = displayName;
         }
 
-        public Uri getProfilePic(Context context) {
+        public Uri getProfilePic() {
             return Convertors.base64ToUri(profilePic, context);
         }
 

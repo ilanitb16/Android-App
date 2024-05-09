@@ -3,12 +3,15 @@ package com.iso.facebook.adapters;
 import static com.iso.facebook.FeedScreen.currentUser;
 
 import android.content.Context;
+import android.graphics.drawable.BitmapDrawable;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -17,10 +20,14 @@ import com.iso.facebook.R;
 import com.iso.facebook.api.ApiService;
 import com.iso.facebook.api.endPoints;
 import com.iso.facebook.common.ProgressDialogManager;
+import com.iso.facebook.common.SharedPreferencesManager;
 import com.iso.facebook.common.UIToast;
+import com.iso.facebook.common.keys;
+import com.iso.facebook.convertors.Convertors;
+import com.iso.facebook.entities.User;
 import com.iso.facebook.entities.User.FriendRequest;
-
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.List;
@@ -56,22 +63,20 @@ public class FriendRequestAdapter extends RecyclerView.Adapter<FriendRequestAdap
     public class FriendRequestViewHolder extends RecyclerView.ViewHolder {
 
         ImageView profilePicImageView;
-        TextView displayNameTextView, displayUsernameTextView;
+        TextView displayNameTextView;
         Button approveButton, rejectButton;
 
         public FriendRequestViewHolder(@NonNull View itemView) {
             super(itemView);
             profilePicImageView = itemView.findViewById(R.id.profile_image);
             displayNameTextView = itemView.findViewById(R.id.friend_name);
-            displayUsernameTextView = itemView.findViewById(R.id.friend_username);
             approveButton = itemView.findViewById(R.id.accept_button);
             rejectButton = itemView.findViewById(R.id.reject_button);
         }
 
         public void bind(FriendRequest friendRequest) {
             displayNameTextView.setText(friendRequest.getDisplayName());
-            profilePicImageView.setImageURI(friendRequest.getProfilePic(context));
-            displayUsernameTextView.setText(friendRequest.getUsername());
+            profilePicImageView.setImageURI(friendRequest.getProfilePic());
 
             approveButton.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -79,7 +84,7 @@ public class FriendRequestAdapter extends RecyclerView.Adapter<FriendRequestAdap
                     int position = getAdapterPosition();
                     if (position != RecyclerView.NO_POSITION) {
                         ProgressDialogManager.showProgressDialog(context, "Approving Request", "Please wait...");
-                        new ApiService(context).patch(endPoints.request+currentUser.getUsername() +"/friends/" + friendRequest.getUsername(), currentUser.getToken(), new ApiService.ApiCallback()
+                        new ApiService(context).patch(endPoints.request+currentUser.get_id() +"/friends" + friendRequest.getUsername(), currentUser.getToken(), new ApiService.ApiCallback()
                         {
                             @Override
                             public void onSuccess(JSONObject response)
@@ -112,7 +117,7 @@ public class FriendRequestAdapter extends RecyclerView.Adapter<FriendRequestAdap
                     int position = getAdapterPosition();
                     if (position != RecyclerView.NO_POSITION) {
                         ProgressDialogManager.showProgressDialog(context, "Rejecting Request", "Please wait...");
-                        new ApiService(context).delete(endPoints.request+currentUser.getUsername() +"/friends/" + friendRequest.getUsername(), currentUser.getToken(), new ApiService.ApiCallback()
+                        new ApiService(context).delete(endPoints.request+currentUser.get_id() +"/friends" + friendRequest.getUsername(), currentUser.getToken(), new ApiService.ApiCallback()
                         {
                             @Override
                             public void onSuccess(JSONObject response)
