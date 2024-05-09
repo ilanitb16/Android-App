@@ -62,6 +62,10 @@ When editing a post to contain a forbbiden link, the website will also deny the 
 ![image](https://github.com/ilanitb16/Android-App/assets/97344492/56aa6a93-87f1-4190-a4ef-5f68bb231bf9)
 
 ## Editing Posts
+-Notice how a post with blacklisted links will not get posted.
+![image](https://github.com/ilanitb16/Android-App/assets/97344492/51edd270-9556-44b7-a923-13efb15ada5a)
+![image](https://github.com/ilanitb16/Android-App/assets/97344492/46b60d4c-2c8d-454f-84fe-24849ac03623)
+
 
 ## Deleting Posts
 
