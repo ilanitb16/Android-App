@@ -53,14 +53,9 @@ Dark mode/light mode can be toggled from the settings menu.
 -	Feed page displaying posts from server:
 ![image](https://github.com/ilanitb16/Android-App/assets/97344492/388d2e78-f36a-4d92-b063-a94c4a17ded2)
 
--	Friend requests:
- <img width="149" alt="image" src="https://github.com/ShmuelGranot/Facebook-iso-APP/assets/97344492/17c45153-f90a-49f2-aa7b-2d47ec78d12a">
-
--	Friends List:
-  <img width="196" alt="image" src="https://github.com/ShmuelGranot/Facebook-iso-APP/assets/131310484/5e55a9e8-f0bb-446d-bd1e-cdc295b0fe6d">
-
--	Comments:
- <img width="128" alt="image" src="https://github.com/ShmuelGranot/Facebook-iso-APP/assets/97344492/e566965d-578a-4a65-be52-415932c07f44">
+-	Friend requests and list:
+![image](https://github.com/ilanitb16/Android-App/assets/97344492/a37353a9-99ed-49eb-9615-932f728b79ae)
+![image](https://github.com/ilanitb16/Android-App/assets/97344492/4d39d0f7-7942-4c76-8616-23e979f859cd)
 
 -	Menu:
 ![image](https://github.com/ilanitb16/Android-App/assets/97344492/dd8dd4ab-22e5-4f05-b353-21749fc6f473)
@@ -69,11 +64,15 @@ Dark mode/light mode can be toggled from the settings menu.
 ![image](https://github.com/ilanitb16/Android-App/assets/97344492/c9f0ef3c-7bb4-46dd-925f-eb621eb6d408)
 
 -	Edit post:
-  <img width="196" alt="image" src="https://github.com/ShmuelGranot/Facebook-iso-APP/assets/97344492/96d4501b-4c44-4c41-84fc-3c94820a467f">
+![image](https://github.com/ilanitb16/Android-App/assets/97344492/d14f11b1-37dc-4593-902c-7a1c87cc712c)
+
+-	Edit post with blacklisted link- not allowd:
+![image](https://github.com/ilanitb16/Android-App/assets/97344492/08d5f574-9312-4a03-9819-6c18dc5cf789)
 
 -User + User's posts:
-
 ![image](https://github.com/ilanitb16/Android-App/assets/97344492/2b602d93-1611-41e8-8338-b1282b97ca3c)
   
+-Logout
+![image](https://github.com/ilanitb16/Android-App/assets/97344492/9bb05f6d-afc5-4028-87d7-7da18090d101)
 
 
