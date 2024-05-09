@@ -34,7 +34,7 @@ Before running the android app, follow the following steps:
 3. `cd api`
 4. `cd endPoints`
 5. change the first line `public static final String baseUrl = "http://10.0.0.17:3000"; ` to the ip address of the computer the node.js is ran on.
-IMPORTANT NOTE: Both the phone and the computer should be connected to the same network.
+IMPORTANT NOTE: Both the phone and the computer should be connected to the same network. Instead of 10.0.0.17 type your current one by checking ipconfig.
 
 Then run the app.
 
