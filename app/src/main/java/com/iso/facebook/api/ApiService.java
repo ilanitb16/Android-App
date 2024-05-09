@@ -175,6 +175,4 @@ public class ApiService {
 
         void onError(String errorMessage);
     }
-
-
 }

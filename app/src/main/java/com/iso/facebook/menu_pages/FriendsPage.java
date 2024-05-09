@@ -36,7 +36,7 @@ import java.util.List;
 
 public class FriendsPage extends AppCompatActivity {
 
-    private RecyclerView recyclerView, requestRecyclerView;
+    private RecyclerView recyclerView;
     private FriendAdapter friendAdapter;
     private FriendRequestAdapter requestAdapter;
 
@@ -53,14 +53,11 @@ public class FriendsPage extends AppCompatActivity {
         recyclerView = findViewById(R.id.friends_feed_recycler_view);
         friendList = new ArrayList<>();
         requestList = new ArrayList<>();
-        friendAdapter = new FriendAdapter(FriendsPage.this, friendList);
-        requestAdapter = new FriendRequestAdapter(FriendsPage.this, requestList);
 
         backButton = findViewById(R.id.back_button);
         requestsButton = findViewById(R.id.requests_button);
         friendsButton = findViewById(R.id.friends_button);
         recyclerView.setLayoutManager(new LinearLayoutManager(FriendsPage.this));
-        recyclerView.setAdapter(friendAdapter);
 
         SwipeRefreshLayout refreshLayout = findViewById(R.id.refreshLayout);
         fetchData();
@@ -68,6 +65,7 @@ public class FriendsPage extends AppCompatActivity {
         refreshLayout.setOnRefreshListener(() -> {
             fetchData();
             refreshLayout.setRefreshing(false);
+            handleButtonClick(friendsButton, requestsButton);
         });
 
         requestsButton.setOnClickListener(new View.OnClickListener()
@@ -120,11 +118,9 @@ public class FriendsPage extends AppCompatActivity {
                 User user = User.fromJson(String.valueOf(response));
                 friendList = user.getFriends();
                 requestList = user.getFriendsRequest();
-                Log.d("Api call", String.valueOf(friendList.size()));
-                Log.d("Api call", String.valueOf(requestList.size()));
-                requestAdapter.notifyDataSetChanged();
-                friendAdapter.notifyDataSetChanged();
-                UIToast.showToast(FriendsPage.this, "Getting Data");
+                friendAdapter = new FriendAdapter(FriendsPage.this, friendList);
+                requestAdapter = new FriendRequestAdapter(FriendsPage.this, requestList);
+                recyclerView.setAdapter(friendAdapter);
                 ProgressDialogManager.dismissProgressDialog();
             }
 

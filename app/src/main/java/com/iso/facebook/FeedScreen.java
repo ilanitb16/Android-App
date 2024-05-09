@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -19,17 +18,22 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import com.iso.facebook.Fragments.Home;
 import com.iso.facebook.auth.LoginScreen;
 import com.iso.facebook.common.BottomSheet.BottomSheetUtils;
-import com.iso.facebook.common.BottomSheetDialog;
 import com.iso.facebook.common.SharedPreferencesManager;
 import com.iso.facebook.common.UIToast;
 import com.iso.facebook.common.keys;
 import com.iso.facebook.entities.CurrentUser;
+import com.iso.facebook.entities.User;
 import com.iso.facebook.menu_pages.CreatePost;
 import com.iso.facebook.menu_pages.MyAccount;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 
 public class FeedScreen extends AppCompatActivity{
 
     public static CurrentUser currentUser;
+    public static List<User.Friend> currentUserFriends;
     private CardView home, createPost, myAccount;
     public static DrawerLayout drawerLayout;
     ConstraintLayout logout;
@@ -47,6 +51,12 @@ public class FeedScreen extends AppCompatActivity{
         close = findViewById(R.id.close);
         logout = findViewById(R.id.logout_button);
         currentUser = SharedPreferencesManager.getObject(FeedScreen.this, keys.currentUser, CurrentUser.class);
+        User user = SharedPreferencesManager.getObject(FeedScreen.this, keys.user, User.class);
+        currentUserFriends = new ArrayList<>();
+        if(user != null)
+        {
+            currentUserFriends = user.getFriends();
+        }
         drawerLayout = findViewById(R.id.drawer_layout);
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);

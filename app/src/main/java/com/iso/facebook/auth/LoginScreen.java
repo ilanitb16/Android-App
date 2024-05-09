@@ -1,5 +1,7 @@
 package com.iso.facebook.auth;
 
+import static com.iso.facebook.FeedScreen.currentUser;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
@@ -25,12 +27,15 @@ import com.iso.facebook.common.SharedPreferencesManager;
 import com.iso.facebook.common.UIToast;
 import com.iso.facebook.common.keys;
 import com.iso.facebook.entities.CurrentUser;
+import com.iso.facebook.entities.User;
+import com.iso.facebook.menu_pages.FriendsPage;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
@@ -56,9 +61,8 @@ public class LoginScreen extends AppCompatActivity {
         tvUsername.addTextChangedListener(new InputTextWatcher(tvUsername));
         tvPassword.addTextChangedListener(new InputTextWatcher(tvPassword));
 
-        // set my username for easy testing, can be erased.
-        tvUsername.setText("ilanitber");
-        tvPassword.setText("Ii!123456");
+        tvUsername.setText("shafiqahmad4");
+        tvPassword.setText("ABC123456789");
         signUpTextView.setOnClickListener(new View.OnClickListener()
         {
             @Override
@@ -96,11 +100,7 @@ public class LoginScreen extends AppCompatActivity {
             @Override
             public void onSuccess(JSONObject response)
             {
-                ProgressDialogManager.dismissProgressDialog();
-                SharedPreferencesManager.setBoolean(LoginScreen.this, keys.loggedIn, true);
-                SharedPreferencesManager.setObject(LoginScreen.this, keys.currentUser, CurrentUser.fromJson(response.toString()));
-                startActivity(new Intent(LoginScreen.this, FeedScreen.class));
-                finish();
+                getFriends(CurrentUser.fromJson(response.toString()));
             }
 
             @Override
@@ -171,5 +171,36 @@ public class LoginScreen extends AppCompatActivity {
                 }
             }
         }
+    }
+
+    void getFriends(CurrentUser currentUser)
+    {
+        new ApiService(LoginScreen.this).get(endPoints.getUser +currentUser.getUsername(), currentUser.getToken(), new ApiService.ApiCallback()
+        {
+            @Override
+            public void onSuccess(JSONObject response)
+            {
+                ProgressDialogManager.dismissProgressDialog();
+                User user = User.fromJson(String.valueOf(response));
+                SharedPreferencesManager.setBoolean(LoginScreen.this, keys.loggedIn, true);
+                SharedPreferencesManager.setObject(LoginScreen.this, keys.user, user);
+                SharedPreferencesManager.setObject(LoginScreen.this, keys.currentUser, currentUser);
+                startActivity(new Intent(LoginScreen.this, FeedScreen.class));
+                finish();
+            }
+
+            @Override
+            public void onSuccess(JSONArray response)
+            {
+                ProgressDialogManager.dismissProgressDialog();
+            }
+
+            @Override
+            public void onError(String errorMessage)
+            {
+                UIToast.showToast(LoginScreen.this, errorMessage);
+                ProgressDialogManager.dismissProgressDialog();
+            }
+        });
     }
 }

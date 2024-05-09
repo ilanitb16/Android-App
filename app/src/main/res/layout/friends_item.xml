@@ -17,11 +17,24 @@
         android:id="@+id/friend_name"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Friend"
-        android:textSize="20sp"
         android:layout_marginStart="15sp"
+        android:text="Friend"
+        android:textFontWeight="500"
+        android:textSize="14sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/profile_image"
         app:layout_constraintStart_toEndOf="@+id/profile_image"
         app:layout_constraintTop_toTopOf="@+id/profile_image" />
+
+    <TextView
+        android:id="@+id/friend_username"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15sp"
+        android:text="Friend"
+        android:textColor="@color/textGrey"
+        android:textFontWeight="400"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/profile_image"
+        app:layout_constraintStart_toEndOf="@+id/profile_image" />
 </androidx.constraintlayout.widget.ConstraintLayout>

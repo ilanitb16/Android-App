@@ -11,7 +11,7 @@ import com.iso.facebook.convertors.Convertors;
 
 @RequiresApi(api = Build.VERSION_CODES.O)
 public class Post {
-    private String id;
+    private String _id;
     private String username;
     private String description;
     private String img;
@@ -21,7 +21,7 @@ public class Post {
 
     public Post(Context context, String id, String username, String description, String img, String title, String profilePic, String offsetDateTime, String time, String date)
     {
-        this.id = id;
+        this._id = id;
         this.username = username;
         this.description = description;
         this.img = img;
@@ -30,8 +30,8 @@ public class Post {
         this.create_date = offsetDateTime;
     }
 
-    public String getID() { return id; }
-    public void setID(String value) { this.id = value; }
+    public String getID() { return _id; }
+    public void setID(String value) { this._id = value; }
 
     public String getUsername() { return username; }
     public void setUsername(String value) { this.username = value; }
@@ -59,14 +59,14 @@ public class Post {
         this.profilePic = Convertors.uriToBase64(profilePic, context);
     }
 
-    public String getId()
+    public String get_id()
     {
-        return id;
+        return _id;
     }
 
-    public void setId(String id)
+    public void set_id(String _id)
     {
-        this.id = id;
+        this._id = _id;
     }
 
 

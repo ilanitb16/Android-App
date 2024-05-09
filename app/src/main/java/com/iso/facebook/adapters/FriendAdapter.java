@@ -1,7 +1,6 @@
 package com.iso.facebook.adapters;
 
 import android.content.Context;
-import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,16 +10,15 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.iso.facebook.entities.User;
-import com.iso.facebook.entities.User.Friend;
 import com.iso.facebook.R;
+import com.iso.facebook.entities.User.Friend;
 
 import java.util.List;
 
 public class FriendAdapter extends RecyclerView.Adapter<FriendAdapter.FriendViewHolder> {
 
-    private List<Friend> friendList;
-    private Context context;
+    private final List<Friend> friendList;
+    private final Context context;
 
     public FriendAdapter(Context context, List<Friend> friendList) {
         this.context = context;
@@ -37,7 +35,7 @@ public class FriendAdapter extends RecyclerView.Adapter<FriendAdapter.FriendView
     @Override
     public void onBindViewHolder(@NonNull FriendViewHolder holder, int position) {
         Friend friend = friendList.get(position);
-        holder.bind(friend);
+        holder.bind(context, friend);
     }
 
     @Override
@@ -49,16 +47,19 @@ public class FriendAdapter extends RecyclerView.Adapter<FriendAdapter.FriendView
 
         ImageView profilePicImageView;
         TextView displayNameTextView;
+        TextView displayUsernameTextView;
 
         public FriendViewHolder(@NonNull View itemView) {
             super(itemView);
             profilePicImageView = itemView.findViewById(R.id.profile_image);
             displayNameTextView = itemView.findViewById(R.id.friend_name);
+            displayUsernameTextView = itemView.findViewById(R.id.friend_username);
         }
 
-        public void bind(Friend friend) {
+        public void bind(Context context, Friend friend) {
             displayNameTextView.setText(friend.getDisplayName());
-            profilePicImageView.setImageURI(friend.getProfilePic());
+            profilePicImageView.setImageURI(friend.getProfilePic(context));
+            displayUsernameTextView.setText(friend.getUsername());
         }
     }
 }

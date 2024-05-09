@@ -39,11 +39,11 @@
             app:layout_constraintTop_toTopOf="@+id/feed_person_profile" />
 
         <ImageView
-            android:id="@+id/feed_menu_button"
+            android:id="@+id/add_friend"
             android:layout_width="0sp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="15sp"
-            android:src="@drawable/ic_threedots"
+            android:src="@drawable/add_friend"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -54,6 +54,7 @@
         android:layout_width="match_parent"
         android:layout_height="0sp"
 app:cardElevation="0sp"
+        android:layout_marginTop="15sp"
         app:cardCornerRadius="15sp"
         app:layout_constraintEnd_toEndOf="@+id/constraintLayout3"
         app:layout_constraintHeight_percent="0.74"
