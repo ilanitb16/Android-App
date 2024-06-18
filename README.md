@@ -1,9 +1,7 @@
 # Project Name: Android App Development
 
 ## Overview:
-This project aims to develop a social media application for Android devices using Java for the Android version. The application will allow users to register, log in, view a feed of posts, interact with posts (like, share, comment), and manage their profiles. The app allows users to mimic basic features of the Facebook social media platform. In this part we integrated mongoDB and allowed the project to function with a working server written on node.js.
-
-The branch PART 3 was made specifically to store this part of the project.
+This project aims to develop a social media application for Android devices using Java for the Android version. The application will allow users to register, log in, view a feed of posts, interact with posts (like, share, comment), and manage their profiles. The app allows users to mimic basic features of the Facebook social media platform. In this part I integrated mongoDB and allowed the project to function with a working server written on node.js.
 
 ## Features:
 - User authentication (register, log in, log out)
